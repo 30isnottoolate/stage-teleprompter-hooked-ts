@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import '../Teleprompter.css';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
@@ -78,13 +78,13 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 		}
 	}
 
-	let listPos = (3 - helpIndex) * settings.fontSize * settings.lineHeight;
-	let stateColor = colors[settings.colorIndex].code;
-	let respWidth: string;
+	const listPos = useMemo(() => {
+		return (3 - helpIndex) * settings.fontSize * settings.lineHeight
+	}, [helpIndex, settings.fontSize, settings.lineHeight]);
 
-	if (settings.orientation === "vertical") {
-		respWidth = "100vh";
-	} else respWidth = "100vw";
+	const stateColor = useMemo(() => colors[settings.colorIndex].code, [settings.colorIndex]);
+
+	const respWidth = useMemo(() => (settings.orientation === "vertical") ? "100vh" : "100vw", [settings.orientation]);
 
 	return (
 		<div
