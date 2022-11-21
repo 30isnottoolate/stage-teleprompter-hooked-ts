@@ -3,9 +3,9 @@ import icons from '../utilities/icons';
 
 interface ControlButtonProps {
     stateColor: string,
-    clickHandler: () => void,
+    clickHandler?: () => void,
     mouseDownHandler: () => void,
-    mouseUpHandler: () => void,
+    mouseUpHandler?: () => void,
     icon: string
 }
 
