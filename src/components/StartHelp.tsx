@@ -13,13 +13,28 @@ interface StartHelpProps {
 		holdButtonTime: number,
 		orientation: string
 	},
-	mode: (string) => void,
+	mode: (mode: string) => void,
 }
 
 const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHelpProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleKeyDown = (event: React.KeyboardEvent) => {
+			if (!keyHold) {
+				if (event.key === "a" || event.key === "b") {
+					setKeyHold(true);
+					setKeyDownTime((new Date()).getTime());
+				} else if (event.key === "c" && !event.repeat) {
+					if (helpIndex < 5) {
+						setHelpIndex((prevValue) => prevValue + 1);
+					} else {
+						setHelpIndex(1);
+					}
+				}
+			}
+	}
 
 	const handleButtonASet = () => mode("set");
 
