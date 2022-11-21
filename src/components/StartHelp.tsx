@@ -22,18 +22,38 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
 	const handleKeyDown = (event: React.KeyboardEvent) => {
-			if (!keyHold) {
-				if (event.key === "a" || event.key === "b") {
-					setKeyHold(true);
-					setKeyDownTime((new Date()).getTime());
-				} else if (event.key === "c" && !event.repeat) {
-					if (helpIndex < 5) {
-						setHelpIndex((prevValue) => prevValue + 1);
-					} else {
-						setHelpIndex(1);
-					}
+		if (!keyHold) {
+			if (event.key === "a" || event.key === "b") {
+				setKeyHold(true);
+				setKeyDownTime((new Date()).getTime());
+			} else if (event.key === "c" && !event.repeat) {
+				if (helpIndex < 5) {
+					setHelpIndex((prevValue) => prevValue + 1);
+				} else {
+					setHelpIndex(1);
 				}
 			}
+		}
+	}
+
+	const handleKeyUp = (event: React.KeyboardEvent) => {
+		if (keyHold) {
+			if (event.key === "a") {
+				if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
+					handleButtonASet();
+				} else {
+					setKeyHold(false);
+					setKeyDownTime(0);
+				}
+			} else if (event.key === "b") {
+				if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
+					handleButtonBList();
+				} else {
+					setKeyHold(false);
+					setKeyDownTime(0);
+				}
+			}
+		}
 	}
 
 	const handleButtonASet = () => mode("set");
