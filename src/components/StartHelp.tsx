@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Teleprompter.css';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
@@ -21,7 +21,17 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
-	const handleKeyDown = (event: React.KeyboardEvent) => {
+	useEffect(() => {
+		document.addEventListener("keydown", (event) => handleKeyDown(event));
+		document.addEventListener("keyup", (event) => handleKeyUp(event));
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+			document.removeEventListener("keyup", handleKeyUp);
+		}
+	}, [])
+
+	const handleKeyDown = (event: KeyboardEvent) => {
 		if (!keyHold) {
 			if (event.key === "a" || event.key === "b") {
 				setKeyHold(true);
@@ -36,7 +46,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 		}
 	}
 
-	const handleKeyUp = (event: React.KeyboardEvent) => {
+	const handleKeyUp = (event: KeyboardEvent) => {
 		if (keyHold) {
 			if (event.key === "a") {
 				if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
