@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -66,6 +67,9 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 	const stateColor = useMemo(() => colors[settings.colorIndex].code, [settings.colorIndex]);
 
 	const respWidth = useMemo(() => (settings.orientation === "vertical") ? "100vh" : "100vw", [settings.orientation]);
+
+	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
 	return (
 		<div
