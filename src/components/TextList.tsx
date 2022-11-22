@@ -8,6 +8,7 @@ interface TextListProps {
 	data: { texts: { text_: { title: string } } },
 	textCount: number,
 	textIndex: number,
+	setTextIndex: Function,
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -18,9 +19,42 @@ interface TextListProps {
 	}
 }
 
-const TextList: React.FC<TextListProps> = ({ mode, colors, data, textCount, textIndex, settings }: TextListProps) => {
+const TextList: React.FC<TextListProps> = ({ mode, colors, data, textCount, textIndex, setTextIndex, settings }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleButtonAPushDown = () => {
+		if (!keyHold) {
+			setKeyHold(true);
+			setKeyDownTime((new Date()).getTime());
+		}
+	}
+
+	const handleButtonAPushUp = () => {
+		if (keyHold) {
+			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
+				mode("set");
+			} else {
+				mode("read");
+			}
+		}
+	}
+
+	const handleButtonBUp = () => {
+		if (textIndex > 1) {
+			setTextIndex((prevValue: number) => prevValue - 1);
+		} else {
+			setTextIndex(textCount);
+		}
+	}
+
+	const handleButtonCDown = () => {
+		if (textIndex < textCount) {
+			setTextIndex((prevValue: number) => prevValue + 1);
+		} else {
+			setTextIndex(1);
+		}
+	}
 
 	let titles = [""];
 	let listPos = (2 - textIndex) * settings.fontSize * settings.lineHeight;
