@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -22,6 +23,22 @@ interface TextListProps {
 const TextList: React.FC<TextListProps> = ({ mode, colors, data, textCount, textIndex, setTextIndex, settings }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleKeyDown = (event: KeyboardEvent) => {
+		if (event.key === "a") {
+			handleButtonAPushDown();
+		} else if (event.key === "b" && !event.repeat) {
+			handleButtonBUp();
+		} else if (event.key === "c" && !event.repeat) {
+			handleButtonCDown();
+		}
+	}
+
+	const handleKeyUp = (event: KeyboardEvent) => {
+		if (event.key === "a") {
+			handleButtonAPushUp();
+		}
+	}
 
 	const handleButtonAPushDown = () => {
 		if (!keyHold) {
@@ -55,6 +72,9 @@ const TextList: React.FC<TextListProps> = ({ mode, colors, data, textCount, text
 			setTextIndex(1);
 		}
 	}
+
+	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
 	let titles = [""];
 	let listPos = (2 - textIndex) * settings.fontSize * settings.lineHeight;
