@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import StartHelp from './StartHelp';
 import TextList from './TextList';
+import Settings from './Settings';
 
 const FONT_SIZE_DEFAULT = 100;
 const LINE_HEIGHT_DEFAULT = 1.2;
@@ -89,7 +90,7 @@ const App: React.FC = () => {
         )
     } else if (mode === "select") {
         return (
-            <TextList mode={setMode} colors={colors} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} settings={settings} />
+            <TextList mode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
         )
     } else if (mode === "read") {
         return (
@@ -97,7 +98,7 @@ const App: React.FC = () => {
         )
     } else {
         return (
-            <div>Settings Mode</div>
+            <Settings mode={setMode} defaultSettings={defaultSettings} colors={colors} settings={settings} />
         )
     }
 }
