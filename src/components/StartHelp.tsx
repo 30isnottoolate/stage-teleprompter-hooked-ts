@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -20,27 +20,13 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
-	useEffect(() => {
-		document.addEventListener("keydown", (event) => handleKeyDown(event));
-		document.addEventListener("keyup", (event) => handleKeyUp(event));
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-			document.removeEventListener("keyup", handleKeyUp);
-		}
-	}, [])
-
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (!keyHold) {
 			if (event.key === "a" || event.key === "b") {
 				setKeyHold(true);
 				setKeyDownTime((new Date()).getTime());
 			} else if (event.key === "c" && !event.repeat) {
-				if (helpIndex < 5) {
-					setHelpIndex((prevValue) => prevValue + 1);
-				} else {
-					setHelpIndex(1);
-				}
+				handleButtonCDown();
 			}
 		}
 	}
@@ -76,10 +62,6 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 			setHelpIndex(1);
 		}
 	}
-
-	const listPos = useMemo(() => {
-		return (3 - helpIndex) * settings.fontSize * settings.lineHeight
-	}, [helpIndex, settings.fontSize, settings.lineHeight]);
 
 	const stateColor = useMemo(() => colors[settings.colorIndex].code, [settings.colorIndex]);
 
@@ -117,7 +99,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 			/>
 			<ul
 				style={{
-					top: listPos,
+					top: (3 - helpIndex) * settings.fontSize * settings.lineHeight,
 					left: settings.fontSize * 0.69,
 					width: respWidth
 				}}>
