@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import StartHelp from './StartHelp';
+import TextList from './TextList';
 
 const FONT_SIZE_DEFAULT = 100;
 const LINE_HEIGHT_DEFAULT = 1.2;
@@ -19,7 +20,7 @@ const colors = {
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start");
-    const [data, setData] = useState("");
+    const [data, setData] = useState({texts: {text_: {title: "", url: ""}}});
     const [textCount, setTextCount] = useState(0);
     const [textIndex, setTextIndex] = useState(1);
     const [settings, setSettings] = useState({
@@ -88,7 +89,7 @@ const App: React.FC = () => {
         )
     } else if (mode === "select") {
         return (
-            <div>Select Mode</div>
+            <TextList mode={setMode} colors={colors} data={data} textCount={textCount} textIndex={textIndex} settings={settings} />
         )
     } else if (mode === "read") {
         return (
