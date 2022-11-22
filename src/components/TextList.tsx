@@ -130,18 +130,18 @@ const TextList: React.FC<TextListProps> = ({ mode, colors, data, textCount, text
 				<div id="control" style={{ width: respWidth }}>
 					<ControlButton
 						stateColor={stateColor}
-						mouseDownHandler={() => { }}
-						mouseUpHandler={() => { }}
+						mouseDownHandler={handleButtonAPushDown}
+						mouseUpHandler={handleButtonAPushUp}
 						icon="selectSettings"
 					/>
 					<ControlButton
 						stateColor={stateColor}
-						mouseDownHandler={() => { }}
+						mouseDownHandler={handleButtonBUp}
 						icon="up"
 					/>
 					<ControlButton
 						stateColor={stateColor}
-						mouseDownHandler={() => { }}
+						mouseDownHandler={handleButtonCDown}
 						icon="down"
 					/>
 				</div>
