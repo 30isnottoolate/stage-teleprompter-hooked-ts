@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface StartHelpProps {
+	mode: (mode: string) => void,
 	colors: {},
 	settings: {
 		fontSize: number,
@@ -12,8 +13,7 @@ interface StartHelpProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	},
-	mode: (mode: string) => void,
+	}
 }
 
 const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHelpProps) => {
@@ -64,12 +64,12 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 		}
 	}
 
-	const stateColor = useMemo(() => colors[settings.colorIndex].code, [settings.colorIndex]);
-
-	const respWidth = useMemo(() => (settings.orientation === "vertical") ? "100vh" : "100vw", [settings.orientation]);
-
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
+
+	let listPos = (3 - helpIndex) * settings.fontSize * settings.lineHeight;
+	let stateColor = colors[settings.colorIndex].code;
+	let respWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
 	return (
 		<div
@@ -103,7 +103,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 			/>
 			<ul
 				style={{
-					top: (3 - helpIndex) * settings.fontSize * settings.lineHeight,
+					top: listPos,
 					left: settings.fontSize * 0.69,
 					width: respWidth
 				}}>
