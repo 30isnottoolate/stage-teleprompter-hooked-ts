@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import StartHelp from './StartHelp';
 
 const FONT_SIZE_DEFAULT = 100;
 const LINE_HEIGHT_DEFAULT = 1.2;
@@ -82,7 +83,7 @@ const App: React.FC = () => {
     }
 
     return (
-        <>So it begins...</>
+        <StartHelp colors={colors} settings={settings} mode={setMode} />
     )
 }
 
