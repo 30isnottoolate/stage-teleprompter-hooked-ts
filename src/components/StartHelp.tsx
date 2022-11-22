@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import '../Teleprompter.css';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
