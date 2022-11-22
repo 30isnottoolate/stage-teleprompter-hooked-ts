@@ -82,9 +82,23 @@ const App: React.FC = () => {
         defaultLocalStorage();
     }
 
-    return (
-        <StartHelp colors={colors} settings={settings} mode={setMode} />
-    )
+    if (mode === "start") {
+        return (
+            <StartHelp colors={colors} settings={settings} mode={setMode} />
+        )
+    } else if (mode === "select") {
+        return (
+            <div>Select Mode</div>
+        )
+    } else if (mode === "read") {
+        return (
+            <div>Read Mode</div>
+        )
+    } else {
+        return (
+            <div>Settings Mode</div>
+        )
+    }
 }
 
 export default App;
