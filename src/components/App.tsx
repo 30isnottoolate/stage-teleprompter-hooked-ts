@@ -85,11 +85,11 @@ const App: React.FC = () => {
 
     if (mode === "start") {
         return (
-            <StartHelp colors={colors} settings={settings} mode={setMode} />
+            <StartHelp mode={setMode} colors={colors} settings={settings} />
         )
     } else if (mode === "select") {
         return (
-            <TextList mode={setMode} colors={colors} data={data} textCount={textCount} textIndex={textIndex} settings={settings} />
+            <TextList mode={setMode} colors={colors} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} settings={settings} />
         )
     } else if (mode === "read") {
         return (
