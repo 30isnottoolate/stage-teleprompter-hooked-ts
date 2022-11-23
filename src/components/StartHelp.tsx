@@ -4,7 +4,7 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface StartHelpProps {
-	mode: (mode: string) => void,
+	mode: Function,
 	colors: {},
 	settings: {
 		fontSize: number,
@@ -58,7 +58,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 
 	const handleButtonCDown = () => {
 		if (helpIndex < 5) {
-			setHelpIndex((prevValue) => prevValue + 1);
+			setHelpIndex((prevState) => prevState + 1);
 		} else {
 			setHelpIndex(1);
 		}
