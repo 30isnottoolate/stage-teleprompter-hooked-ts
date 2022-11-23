@@ -75,32 +75,39 @@ const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, s
 		}
 	}
 
+	const changeSettings = (setting: string, value: number) => {
+		setSettings((prevState: typeof settings) => {
+			localStorage.setItem(setting, (prevState[setting] + value).toString());
+			return { ...prevState, [setting]: prevState[setting] + value };
+		});
+	}
+
 	const handleButtonBUpDecrease = () => {
 		if (inChangeMode) {
 			switch (settingsIndex) {
 				case 1:
 					if (settings.fontSize > 80) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, fontSize: prevState.fontSize - 1 }));
+						changeSettings("fontSize", -1);
 					}
 					break;
 				case 2:
 					if (settings.lineHeight > 1) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, lineHeight: prevState.lineHeight - 0.01 }));
+						changeSettings("lineHeight", -0.01);
 					}
 					break;
 				case 3:
 					if (settings.colorIndex > 1) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, colorIndex: prevState.colorIndex - 1 }));
+						changeSettings("colorIndex", -1);
 					}
 					break;
 				case 4:
 					if (settings.textSpeed > 20) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, textSpeed: prevState.textSpeed - 1 }));
+						changeSettings("textSpeed", -1);
 					}
 					break;
 				case 5:
 					if (settings.holdButtonTime > 1000) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, holdButtonTime: prevState.holdButtonTime - 10 }));
+						changeSettings("holdButtonTime", -10);
 					}
 					break;
 				case 6:
@@ -123,27 +130,27 @@ const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, s
 			switch (settingsIndex) {
 				case 1:
 					if (settings.fontSize < 150) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, fontSize: prevState.fontSize + 1 }));
+						changeSettings("fontSize", +1);
 					}
 					break;
 				case 2:
 					if (settings.lineHeight < 1.5) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, lineHeight: prevState.lineHeight + 0.01 }));
+						changeSettings("lineHeight", +0.01);
 					}
 					break;
 				case 3:
 					if (settings.colorIndex < 5) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, colorIndex: prevState.colorIndex + 1 }));
+						changeSettings("colorIndex", +1);
 					}
 					break;
 				case 4:
 					if (settings.textSpeed < 200) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, textSpeed: prevState.textSpeed + 1 }));
+						changeSettings("textSpeed", +1);
 					}
 					break;
 				case 5:
 					if (settings.holdButtonTime < 5000) {
-						setSettings((prevState: typeof settings) => ({ ...prevState, holdButtonTime: prevState.holdButtonTime + 10 }));
+						changeSettings("holdButtonTime", +10);
 					}
 					break;
 				case 6:
@@ -162,9 +169,15 @@ const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, s
 	}
 
 	const changeOrientation = () => {
-		if (settings.orientation === "horizontal") {
-			setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "vertical" }));
-		} else setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "horizontal" }));
+			setSettings((prevState: typeof settings) => {
+				if (prevState.orientation === "horizontal") {
+					localStorage.setItem("orientation", "vertical");
+					return { ...prevState, orientation: "vertical" };
+				} else {
+					localStorage.setItem("orientation", "horizontal");
+					return { ...prevState, orientation: "horizontal" };
+				}
+			});
 	}
 
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
