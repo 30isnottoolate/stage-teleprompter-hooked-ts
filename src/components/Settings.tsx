@@ -116,22 +116,10 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 	}
 
 	let listPosTop = (2 - settingsIndex) * settings.fontSize * settings.lineHeight;
-	let listPosLeftA;
-	let listPosLeftB;
+	let listPosLeftA = (inChangeMode) ? settings.fontSize * 0.69 - settings.fontSize * 8.02 : settings.fontSize * 0.69;
+	let listPosLeftB = (inChangeMode) ? settings.fontSize * 0.69 : settings.fontSize * 8.02;
 	let stateColor = colors[settings.colorIndex].code;
-	let respWidth;
-
-	if (settings.orientation === "vertical") {
-		respWidth = "100vh";
-	} else respWidth = "100vw";
-
-	if (inChangeMode) {
-		listPosLeftA = settings.fontSize * 0.69 - settings.fontSize * 8.02;
-		listPosLeftB = settings.fontSize * 0.69;
-	} else {
-		listPosLeftA = settings.fontSize * 0.69;
-		listPosLeftB = settings.fontSize * 8.02;
-	}
+	let respWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
 	return (
 		<div
