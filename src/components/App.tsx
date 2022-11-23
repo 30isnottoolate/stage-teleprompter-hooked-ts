@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import StartHelp from './StartHelp';
 import TextList from './TextList';
+import TextSlider from './TextSlider';
 import Settings from './Settings';
 
 const FONT_SIZE_DEFAULT = 100;
@@ -94,7 +95,7 @@ const App: React.FC = () => {
         )
     } else if (mode === "read") {
         return (
-            <div>Read Mode</div>
+            <TextSlider mode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
         )
     } else {
         return (
