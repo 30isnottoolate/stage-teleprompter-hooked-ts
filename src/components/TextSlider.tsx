@@ -38,15 +38,28 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 
 	useEffect(() => {
 		let intervalID: ReturnType<typeof setInterval>;
+		let noEmptyLinesTextHeight: number;
+		let intervalValue: number;
 
-		if (slideRef.current) {
-			let noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(currentText);
-			let intervalValue = (currentText.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
-			intervalID = setInterval(() => { moveSlide(); }, intervalValue);
+		if (slideRef.current && active) {
+			noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(currentText);
+			intervalValue = (currentText.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
+			intervalID = setInterval(() => setPosition((prevState) => prevState - 1), intervalValue);
 		}
 
 		return () => clearInterval(intervalID);
-	}, [])
+	}, [currentText, active]);
+
+	useEffect(() => {
+		if (slideRef.current) {
+			if (!(slideRef.current.offsetHeight > ((-1) * position +
+				(settings.fontSize * settings.lineHeight * 2)) &&
+				(position) <= (settings.fontSize * settings.lineHeight))) {
+				setActive(false);
+				setEndReached(true);
+			}
+		}
+	}, [position]);
 
 	const countEmptyLines = (input: string) => {
 		return (input.match(/^[ ]*$/gm) || []).length;
@@ -79,20 +92,6 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 		} else {
 			fetchText(1);
 			setTextIndex(1);
-		}
-	}
-
-	const moveSlide = () => {
-		if (active && slideRef.current) {
-			if (slideRef.current.offsetHeight > (position * (-1) +
-				(settings.fontSize * settings.lineHeight * 2)) &&
-				(position) <= (settings.fontSize * settings.lineHeight)) {
-				setPosition((prevState) => prevState - 1);
-			} else {
-				setActive(false);
-				setPosition((prevState) => prevState + 1);
-				setEndReached(true);
-			}
 		}
 	}
 
