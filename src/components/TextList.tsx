@@ -4,7 +4,7 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface TextListProps {
-	mode: (mode: string) => void,
+	mode: Function,
 	data: { texts: { text_: { title: string } } },
 	textCount: number,
 	textIndex: number,
@@ -59,7 +59,7 @@ const TextList: React.FC<TextListProps> = ({ mode, data, textCount, textIndex, s
 
 	const handleButtonBUp = () => {
 		if (textIndex > 1) {
-			setTextIndex((prevValue: number) => prevValue - 1);
+			setTextIndex((prevState: number) => prevState - 1);
 		} else {
 			setTextIndex(textCount);
 		}
@@ -67,7 +67,7 @@ const TextList: React.FC<TextListProps> = ({ mode, data, textCount, textIndex, s
 
 	const handleButtonCDown = () => {
 		if (textIndex < textCount) {
-			setTextIndex((prevValue: number) => prevValue + 1);
+			setTextIndex((prevState: number) => prevState + 1);
 		} else {
 			setTextIndex(1);
 		}
