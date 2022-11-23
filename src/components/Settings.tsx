@@ -4,8 +4,9 @@ import ControlButton from './ControlButton';
 
 interface SettingsProps {
 	mode: (mode: string) => void,
-	defaultSettings: () => void,
 	colors: {},
+	setSettings: Function,
+	defaultSettings: () => void,
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -16,11 +17,103 @@ interface SettingsProps {
 	}
 }
 
-const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, settings}: SettingsProps) => {
+const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, settings, setSettings}: SettingsProps) => {
 	const [settingsIndex, setSettingsIndex] = useState(1);
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleButtonBUpDecrease = () => {
+		if (inChangeMode) {
+			switch (settingsIndex) {
+				case 1:
+					if (settings.fontSize > 80) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, fontSize: prevValue.fontSize - 1 }));
+					}
+					break;
+				case 2:
+					if (settings.lineHeight > 1) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, lineHeight: prevValue.lineHeight - 0.01 }));
+					}
+					break;
+				case 3:
+					if (settings.colorIndex > 1) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, colorIndex: prevValue.colorIndex - 1 }));
+					}
+					break;
+				case 4:
+					if (settings.textSpeed > 20) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, textSpeed: prevValue.textSpeed - 1 }));
+					}
+					break;
+				case 5:
+					if (settings.holdButtonTime > 1000) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, holdButtonTime: prevValue.holdButtonTime - 10 }));
+					}
+					break;
+				case 6:
+					changeOrientation();
+					break;
+				default:
+					console.log("This should have never happened.");
+			}
+		} else {
+			if (settingsIndex > 1) {
+				setSettingsIndex((prevValues) => prevValues - 1);
+			} else {
+				setSettingsIndex(8);
+			}
+		}
+	}
+
+	const handleButtonCDownIncrease = () => {
+		if (inChangeMode) {
+			switch (settingsIndex) {
+				case 1:
+					if (settings.fontSize < 150) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, fontSize: prevValue.fontSize + 1 }));
+					}
+					break;
+				case 2:
+					if (settings.lineHeight < 1.5) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, lineHeight: prevValue.lineHeight + 0.01 }));
+					}
+					break;
+				case 3:
+					if (settings.colorIndex < 5) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, colorIndex: prevValue.colorIndex + 1 }));
+					}
+					break;
+				case 4:
+					if (settings.textSpeed < 200) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, textSpeed: prevValue.textSpeed + 1 }));
+					}
+					break;
+				case 5:
+					if (settings.holdButtonTime < 5000) {
+						setSettings((prevValue: typeof settings) => ({...prevValue, holdButtonTime: prevValue.holdButtonTime + 10 }));
+					}
+					break;
+				case 6:
+					changeOrientation();
+					break;
+				default:
+					console.log("This should have never happened.");
+			}
+		} else {
+			if (settingsIndex < 8) {
+				setSettingsIndex((prevValues) => prevValues + 1);
+			} else {
+				setSettingsIndex(1);
+			}
+		}
+	}
+
+	const changeOrientation = () => {
+		if (settings.orientation === "horizontal") {
+			setSettings((prevValue: typeof settings) => ({...prevValue, orientation: "vertical" }));
+		} else setSettings((prevValue: typeof settings) => ({...prevValue, orientation: "horizontal" }));
+	}
 
 	let listPosTop = (2 - settingsIndex) * settings.fontSize * settings.lineHeight;
 	let listPosLeftA;
