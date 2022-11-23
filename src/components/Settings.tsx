@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -17,38 +17,69 @@ interface SettingsProps {
 	}
 }
 
-const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, settings, setSettings}: SettingsProps) => {
+const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, settings, setSettings }: SettingsProps) => {
 	const [settingsIndex, setSettingsIndex] = useState(1);
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleButtonAPushDown = () => {
+		if (!keyHold) {
+			if (!inChangeMode) {
+				setKeyHold(true);
+				setKeyDownTime((new Date()).getTime());
+			} else {
+				setInChangeMode(false);
+			}
+		}
+	}
+
+	const handleButtonAPushUp = () => {
+		if (keyHold) {
+			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
+				mode("select");
+			} else {
+				if (settingsIndex === 7) {
+					defaultSettings();
+					setKeyHold(false);
+					setKeyDownTime(0);
+				} else if (settingsIndex === 8) {
+					mode("start");
+				} else {
+					setKeyHold(false);
+					setKeyDownTime(0);
+					setInChangeMode((prevState) => !prevState);
+				}
+			}
+		}
+	}
 
 	const handleButtonBUpDecrease = () => {
 		if (inChangeMode) {
 			switch (settingsIndex) {
 				case 1:
 					if (settings.fontSize > 80) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, fontSize: prevValue.fontSize - 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, fontSize: prevState.fontSize - 1 }));
 					}
 					break;
 				case 2:
 					if (settings.lineHeight > 1) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, lineHeight: prevValue.lineHeight - 0.01 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, lineHeight: prevState.lineHeight - 0.01 }));
 					}
 					break;
 				case 3:
 					if (settings.colorIndex > 1) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, colorIndex: prevValue.colorIndex - 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, colorIndex: prevState.colorIndex - 1 }));
 					}
 					break;
 				case 4:
 					if (settings.textSpeed > 20) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, textSpeed: prevValue.textSpeed - 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, textSpeed: prevState.textSpeed - 1 }));
 					}
 					break;
 				case 5:
 					if (settings.holdButtonTime > 1000) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, holdButtonTime: prevValue.holdButtonTime - 10 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, holdButtonTime: prevState.holdButtonTime - 10 }));
 					}
 					break;
 				case 6:
@@ -59,7 +90,7 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 			}
 		} else {
 			if (settingsIndex > 1) {
-				setSettingsIndex((prevValues) => prevValues - 1);
+				setSettingsIndex((prevStates) => prevStates - 1);
 			} else {
 				setSettingsIndex(8);
 			}
@@ -71,27 +102,27 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 			switch (settingsIndex) {
 				case 1:
 					if (settings.fontSize < 150) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, fontSize: prevValue.fontSize + 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, fontSize: prevState.fontSize + 1 }));
 					}
 					break;
 				case 2:
 					if (settings.lineHeight < 1.5) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, lineHeight: prevValue.lineHeight + 0.01 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, lineHeight: prevState.lineHeight + 0.01 }));
 					}
 					break;
 				case 3:
 					if (settings.colorIndex < 5) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, colorIndex: prevValue.colorIndex + 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, colorIndex: prevState.colorIndex + 1 }));
 					}
 					break;
 				case 4:
 					if (settings.textSpeed < 200) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, textSpeed: prevValue.textSpeed + 1 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, textSpeed: prevState.textSpeed + 1 }));
 					}
 					break;
 				case 5:
 					if (settings.holdButtonTime < 5000) {
-						setSettings((prevValue: typeof settings) => ({...prevValue, holdButtonTime: prevValue.holdButtonTime + 10 }));
+						setSettings((prevState: typeof settings) => ({ ...prevState, holdButtonTime: prevState.holdButtonTime + 10 }));
 					}
 					break;
 				case 6:
@@ -102,7 +133,7 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 			}
 		} else {
 			if (settingsIndex < 8) {
-				setSettingsIndex((prevValues) => prevValues + 1);
+				setSettingsIndex((prevStates) => prevStates + 1);
 			} else {
 				setSettingsIndex(1);
 			}
@@ -111,8 +142,8 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 
 	const changeOrientation = () => {
 		if (settings.orientation === "horizontal") {
-			setSettings((prevValue: typeof settings) => ({...prevValue, orientation: "vertical" }));
-		} else setSettings((prevValue: typeof settings) => ({...prevValue, orientation: "horizontal" }));
+			setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "vertical" }));
+		} else setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "horizontal" }));
 	}
 
 	let listPosTop = (2 - settingsIndex) * settings.fontSize * settings.lineHeight;
@@ -164,18 +195,18 @@ const Settings: React.FC<SettingsProps> = ({mode, defaultSettings, colors, setti
 			<div id="control" style={{ width: respWidth }}>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => {}}
-					mouseUpHandler={() => {}}
+					mouseDownHandler={() => { }}
+					mouseUpHandler={() => { }}
 					icon="selectList"
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => {}}
+					mouseDownHandler={() => { }}
 					icon={inChangeMode ? "left" : "up"}
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => {}}
+					mouseDownHandler={() => { }}
 					icon={inChangeMode ? "right" : "down"}
 				/>
 			</div>
