@@ -24,7 +24,6 @@ interface TextSliderProps {
 
 const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
-	const [timer, setTimer] = useState(() => { });
 	const [position, setPosition] = useState(0);
 	const [currentText, setCurrentText] = useState("Loading...");
 	const [endReached, setEndReached] = useState(false);
