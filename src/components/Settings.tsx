@@ -219,18 +219,18 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 			<div id="control" style={{ width: respWidth }}>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
-					mouseUpHandler={() => { }}
+					mouseDownHandler={handleButtonAPushDown}
+					mouseUpHandler={handleButtonAPushUp}
 					icon="selectList"
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
+					mouseDownHandler={handleButtonBUpDecrease}
 					icon={inChangeMode ? "left" : "up"}
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
+					mouseDownHandler={handleButtonCDownIncrease}
 					icon={inChangeMode ? "right" : "down"}
 				/>
 			</div>
