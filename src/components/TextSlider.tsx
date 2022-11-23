@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -136,6 +137,9 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 			setActive((prevState) => !prevState);
 		}
 	}
+
+	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = settings.orientation === "vertical" ? "100vh" : "100vw";
