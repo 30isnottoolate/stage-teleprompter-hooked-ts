@@ -4,7 +4,7 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface TextListProps {
-	mode: Function,
+	setMode: Function,
 	data: { texts: { text_: { title: string } } },
 	textCount: number,
 	textIndex: number,
@@ -20,7 +20,7 @@ interface TextListProps {
 	}
 }
 
-const TextList: React.FC<TextListProps> = ({ mode, data, textCount, textIndex, setTextIndex, colors, settings }: TextListProps) => {
+const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex, setTextIndex, colors, settings }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
@@ -50,9 +50,9 @@ const TextList: React.FC<TextListProps> = ({ mode, data, textCount, textIndex, s
 	const handleButtonAPushUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				mode("set");
+				setMode("set");
 			} else {
-				mode("read");
+				setMode("read");
 			}
 		}
 	}

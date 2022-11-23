@@ -4,7 +4,7 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface StartHelpProps {
-	mode: Function,
+	setMode: Function,
 	colors: {},
 	settings: {
 		fontSize: number,
@@ -16,7 +16,7 @@ interface StartHelpProps {
 	}
 }
 
-const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHelpProps) => {
+const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, setMode }: StartHelpProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
@@ -52,9 +52,9 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, mode }: StartHe
 		}
 	}
 
-	const handleButtonASet = () => mode("set");
+	const handleButtonASet = () => setMode("set");
 
-	const handleButtonBList = () => mode("select");
+	const handleButtonBList = () => setMode("select");
 
 	const handleButtonCDown = () => {
 		if (helpIndex < 5) {

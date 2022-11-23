@@ -87,19 +87,19 @@ const App: React.FC = () => {
 
     if (mode === "start") {
         return (
-            <StartHelp mode={setMode} colors={colors} settings={settings} />
+            <StartHelp setMode={setMode} colors={colors} settings={settings} />
         )
     } else if (mode === "select") {
         return (
-            <TextList mode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
+            <TextList setMode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
         )
     } else if (mode === "read") {
         return (
-            <TextSlider mode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
+            <TextSlider setMode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
         )
     } else {
         return (
-            <Settings mode={setMode} colors={colors} setSettings={setSettings} defaultSettings={defaultSettings} settings={settings} />
+            <Settings setMode={setMode} colors={colors} setSettings={setSettings} defaultSettings={defaultSettings} settings={settings} />
         )
     }
 }

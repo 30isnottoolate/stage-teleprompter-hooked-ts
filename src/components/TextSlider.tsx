@@ -6,7 +6,7 @@ import ControlButton from './ControlButton';
 const READ_SPEED_COEF = 0.0151; // char/ms
 
 interface TextSliderProps {
-	mode: Function,
+	setMode: Function,
 	data: { texts: { text_: { title: string } } },
 	textCount: number,
 	textIndex: number,
@@ -22,7 +22,7 @@ interface TextSliderProps {
 	}
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
+const TextSlider: React.FC<TextSliderProps> = ({ setMode, data, textCount, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
 	const [position, setPosition] = useState(0);
 	const [currentText, setCurrentText] = useState("Loading...");
@@ -140,9 +140,9 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 		}
 	}
 
-	const handleButtonASet = () => mode("set");
+	const handleButtonASet = () => setMode("set");
 
-	const handleButtonBList = () => mode("select");
+	const handleButtonBList = () => setMode("select");
 
 	const handleButtonCStartStop = () => {
 		if (endReached) {

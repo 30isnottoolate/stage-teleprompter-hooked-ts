@@ -4,7 +4,7 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface SettingsProps {
-	mode: Function,
+	setMode: Function,
 	colors: {},
 	setSettings: Function,
 	defaultSettings: Function,
@@ -18,7 +18,7 @@ interface SettingsProps {
 	}
 }
 
-const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, settings, setSettings }: SettingsProps) => {
+const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, settings, setSettings }: SettingsProps) => {
 	const [settingsIndex, setSettingsIndex] = useState(1);
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
@@ -58,14 +58,14 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 	const handleButtonAPushUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				mode("select");
+				setMode("select");
 			} else {
 				if (settingsIndex === 7) {
 					defaultSettings();
 					setKeyHold(false);
 					setKeyDownTime(0);
 				} else if (settingsIndex === 8) {
-					mode("start");
+					setMode("start");
 				} else {
 					setKeyHold(false);
 					setKeyDownTime(0);
