@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -22,6 +23,26 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
+
+	const handleKeyDown = (event: KeyboardEvent) => {
+		if (event.key === "a") {
+			handleButtonAPushDown();
+		} else {
+			if ((!inChangeMode && !event.repeat) || inChangeMode) {
+				if (event.key === "b") {
+					handleButtonBUpDecrease();
+				} else if (event.key === "c") {
+					handleButtonCDownIncrease();
+				}
+			}
+		}
+	}
+
+	const handleKeyUp = (event: KeyboardEvent) => {
+		if (event.key === "a") {
+			handleButtonAPushUp();
+		}
+	}
 
 	const handleButtonAPushDown = () => {
 		if (!keyHold) {
@@ -145,6 +166,9 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 			setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "vertical" }));
 		} else setSettings((prevState: typeof settings) => ({ ...prevState, orientation: "horizontal" }));
 	}
+
+	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
 	let listPosTop = (2 - settingsIndex) * settings.fontSize * settings.lineHeight;
 	let listPosLeftA = (inChangeMode) ? settings.fontSize * 0.69 - settings.fontSize * 8.02 : settings.fontSize * 0.69;
