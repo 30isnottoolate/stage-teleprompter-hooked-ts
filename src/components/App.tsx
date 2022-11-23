@@ -98,7 +98,7 @@ const App: React.FC = () => {
         )
     } else {
         return (
-            <Settings mode={setMode} defaultSettings={defaultSettings} colors={colors} settings={settings} />
+            <Settings mode={setMode} colors={colors} setSettings={setSettings} defaultSettings={defaultSettings} settings={settings} />
         )
     }
 }
