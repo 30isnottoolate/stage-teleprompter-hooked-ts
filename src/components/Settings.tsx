@@ -4,10 +4,10 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface SettingsProps {
-	mode: (mode: string) => void,
+	mode: Function,
 	colors: {},
 	setSettings: Function,
-	defaultSettings: () => void,
+	defaultSettings: Function,
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -107,7 +107,7 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 					changeOrientation();
 					break;
 				default:
-					console.log("This should have never happened.");
+					console.log("The impossible just happened.");
 			}
 		} else {
 			if (settingsIndex > 1) {
@@ -150,7 +150,7 @@ const Settings: React.FC<SettingsProps> = ({ mode, defaultSettings, colors, sett
 					changeOrientation();
 					break;
 				default:
-					console.log("This should have never happened.");
+					console.log("The impossible just happened.");
 			}
 		} else {
 			if (settingsIndex < 8) {
