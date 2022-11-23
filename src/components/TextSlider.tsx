@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import useEventListener from '../utilities/useEventListener';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
@@ -32,6 +32,22 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
 	const slideRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		fetchText(textIndex);
+	}, [textIndex]);
+
+	useEffect(() => {
+		let intervalID: ReturnType<typeof setInterval>;
+
+		if (slideRef.current) {
+			let noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(currentText);
+			let intervalValue = (currentText.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
+			intervalID = setInterval(() => { moveSlide(); }, intervalValue);
+		}
+
+		return () => clearInterval(intervalID);
+	}, [])
 
 	const countEmptyLines = (input: string) => {
 		return (input.match(/^[ ]*$/gm) || []).length;
