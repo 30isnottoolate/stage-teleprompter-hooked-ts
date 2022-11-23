@@ -195,17 +195,17 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 				style={{ width: responsiveWidth }}>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
+					mouseDownHandler={handleButtonASet}
 					icon="settings"
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
+					mouseDownHandler={handleButtonBList}
 					icon="list"
 				/>
 				<ControlButton
 					stateColor={stateColor}
-					mouseDownHandler={() => { }}
+					mouseDownHandler={handleButtonCStartStop}
 					icon={endReached ? "next" : active ? "pause" : "play"}
 				/>
 			</div>
