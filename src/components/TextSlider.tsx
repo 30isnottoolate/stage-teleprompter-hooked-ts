@@ -32,6 +32,10 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 
 	const slideRef = useRef<HTMLDivElement>(null);
 
+	const countEmptyLines = (input: string) => {
+		return (input.match(/^[ ]*$/gm) || []).length;
+	}
+
 	const fetchText = (index: number) => {
 		fetch(data.texts["text_" + index].url, {
 			headers: {
@@ -50,24 +54,87 @@ const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textInde
 			.catch(() => console.log("Text missing."));
 	}
 
+	const nextText = () => {
+		if (textIndex < textCount) {
+			setTextIndex((prevState: number) => {
+				fetchText(prevState + 1);
+				return prevState + 1;
+			});
+		} else {
+			fetchText(1);
+			setTextIndex(1);
+		}
+	}
+
+	const moveSlide = () => {
+		if (active && slideRef.current) {
+			if (slideRef.current.offsetHeight > (position * (-1) +
+				(settings.fontSize * settings.lineHeight * 2)) &&
+				(position) <= (settings.fontSize * settings.lineHeight)) {
+				setPosition((prevState) => prevState - 1);
+			} else {
+				setActive(false);
+				setPosition((prevState) => prevState + 1);
+				setEndReached(true);
+			}
+		}
+	}
+
+	const handleKeyDown = (event: KeyboardEvent) => {
+		if (!keyHold) {
+			if (event.key === "a" || event.key === "b" || event.key === "c") {
+				setKeyHold(true);
+				setKeyDownTime((new Date()).getTime());
+			}
+		}
+	}
+
+	const handleKeyUp = (event: KeyboardEvent) => {
+		let holdButtonCondition = ((new Date()).getTime() - keyDownTime) > settings.holdButtonTime;
+
+		if (keyHold) {
+			if (event.key === "a") {
+				if (holdButtonCondition) {
+					handleButtonASet();
+				} else {
+					setKeyHold(false);
+					setKeyDownTime(0);
+				}
+			} else if (event.key === "b") {
+				if (holdButtonCondition) {
+					handleButtonBList();
+				}
+				else {
+					setKeyHold(false);
+					setKeyDownTime(0);
+				}
+			} else if (event.key === "c") {
+				if (endReached) {
+					if (holdButtonCondition) {
+						nextText();
+					} else {
+						setKeyHold(false);
+						setKeyDownTime(0);
+					}
+				} else {
+					setActive((prevState) => !prevState);
+					setKeyHold(false);
+					setKeyDownTime(0);
+				}
+			}
+		}
+	}
+
 	const handleButtonASet = () => mode("set");
 
 	const handleButtonBList = () => mode("select");
 
 	const handleButtonCStartStop = () => {
-			if (endReached) {
-				if (textIndex < textCount) {
-					setTextIndex((prevState: number) => {
-						fetchText(prevState + 1);
-						return prevState + 1;
-					});
-				} else {
-					fetchText(1);
-					setTextIndex(1);
-				}
-			} else {
-				setActive((prevState) => !prevState);
-			}
+		if (endReached) {
+			nextText();
+		} else {
+			setActive((prevState) => !prevState);
+		}
 	}
 
 	let stateColor = colors[settings.colorIndex].code;
