@@ -7,7 +7,8 @@ const READ_SPEED_COEF = 0.0151; // char/ms
 interface TextSliderProps {
 	mode: Function,
 	data: { texts: { text_: { title: string } } },
-	textIndex: number
+	textCount: number,
+	textIndex: number,
 	setTextIndex: Function,
 	colors: {},
 	settings: {
@@ -20,16 +21,54 @@ interface TextSliderProps {
 	}
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ mode, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
+const TextSlider: React.FC<TextSliderProps> = ({ mode, data, textCount, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
 	const [timer, setTimer] = useState(() => { });
 	const [position, setPosition] = useState(0);
 	const [currentText, setCurrentText] = useState("Loading...");
 	const [endReached, setEndReached] = useState(false);
-	const [keyHold, setKeyDold] = useState(false);
+	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
 	const slideRef = useRef<HTMLDivElement>(null);
+
+	const fetchText = (index: number) => {
+		fetch(data.texts["text_" + index].url, {
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
+		})
+			.then(response => response.text())
+			.then(text => {
+				setPosition(settings.fontSize * settings.lineHeight);
+				setCurrentText(text);
+				setEndReached(false);
+				setKeyHold(false);
+				setKeyDownTime(0);
+			})
+			.catch(() => console.log("Text missing."));
+	}
+
+	const handleButtonASet = () => mode("set");
+
+	const handleButtonBList = () => mode("select");
+
+	const handleButtonCStartStop = () => {
+			if (endReached) {
+				if (textIndex < textCount) {
+					setTextIndex((prevState: number) => {
+						fetchText(prevState + 1);
+						return prevState + 1;
+					});
+				} else {
+					fetchText(1);
+					setTextIndex(1);
+				}
+			} else {
+				setActive((prevState) => !prevState);
+			}
+	}
 
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = settings.orientation === "vertical" ? "100vh" : "100vw";
