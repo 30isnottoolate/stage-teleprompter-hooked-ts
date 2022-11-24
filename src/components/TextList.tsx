@@ -79,7 +79,7 @@ const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex
 	let titles = [""];
 	let listPos = (2 - textIndex) * settings.fontSize * settings.lineHeight;
 	let stateColor = colors[settings.colorIndex].code;
-	let respWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
+	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
 	if (textCount === 0) {
 		return (
@@ -115,7 +115,7 @@ const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex
 					style={{
 						top: listPos,
 						left: (settings.fontSize * 0.69),
-						width: `calc(${respWidth} - ${(settings.fontSize * 0.69)}px)`
+						width: `calc(${responsiveWidth} - ${(settings.fontSize * 0.69)}px)`
 					}}
 				>
 					{titles.map((item, index) => <li key={index}>{item}</li>)}
@@ -127,7 +127,7 @@ const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex
 					lineHeight={settings.lineHeight}
 					stateColor={stateColor}
 				/>
-				<div id="control" style={{ width: respWidth }}>
+				<div id="control" style={{ width: responsiveWidth }}>
 					<ControlButton
 						stateColor={stateColor}
 						mouseDownHandler={handleButtonAPushDown}

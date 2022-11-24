@@ -69,7 +69,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, setMode }: Star
 
 	let listPos = (3 - helpIndex) * settings.fontSize * settings.lineHeight;
 	let stateColor = colors[settings.colorIndex].code;
-	let respWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
+	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
 	return (
 		<div
@@ -105,7 +105,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, setMode }: Star
 				style={{
 					top: listPos,
 					left: settings.fontSize * 0.69,
-					width: respWidth
+					width: responsiveWidth
 				}}>
 				<li>&#9651;&#9661; - Previous / Next</li>
 				<li>&#9665;&#9655; - Change setting</li>
@@ -113,7 +113,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, setMode }: Star
 				<li>&#9636; - Text List</li>
 				<li>&#8984; - Settings</li>
 			</ul>
-			<div id="control" style={{ width: respWidth }}>
+			<div id="control" style={{ width: responsiveWidth }}>
 				<ControlButton
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonASet}

@@ -187,7 +187,7 @@ const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, s
 	let listPosLeftA = (inChangeMode) ? settings.fontSize * 0.69 - settings.fontSize * 8.02 : settings.fontSize * 0.69;
 	let listPosLeftB = (inChangeMode) ? settings.fontSize * 0.69 : settings.fontSize * 8.02;
 	let stateColor = colors[settings.colorIndex].code;
-	let respWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
+	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
 	return (
 		<div
@@ -229,7 +229,7 @@ const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, s
 				<li>{settings.orientation}</li>
 				<li></li>
 			</ul>
-			<div id="control" style={{ width: respWidth }}>
+			<div id="control" style={{ width: responsiveWidth }}>
 				<ControlButton
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonAPushDown}
