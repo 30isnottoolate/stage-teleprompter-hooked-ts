@@ -22,7 +22,7 @@ const colors = {
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start");
-    const [data, setData] = useState({texts: {text_: {title: "", url: ""}}});
+    const [data, setData] = useState({ texts: { text_: { title: "", url: "" } } });
     const [textCount, setTextCount] = useState(0);
     const [textIndex, setTextIndex] = useState(1);
     const [settings, setSettings] = useState({
@@ -87,19 +87,39 @@ const App: React.FC = () => {
 
     if (mode === "start") {
         return (
-            <StartHelp setMode={setMode} colors={colors} settings={settings} />
+            <StartHelp
+                setMode={setMode}
+                colors={colors}
+                settings={settings}
+            />
         )
     } else if (mode === "select") {
         return (
-            <TextList setMode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
+            <TextList
+                setMode={setMode}
+                data={data}
+                textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex}
+                colors={colors}
+                settings={settings}
+            />
         )
     } else if (mode === "read") {
         return (
-            <TextSlider setMode={setMode} data={data} textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex} colors={colors} settings={settings} />
+            <TextSlider
+                setMode={setMode}
+                data={data}
+                textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex}
+                colors={colors}
+                settings={settings}
+            />
         )
     } else {
         return (
-            <Settings setMode={setMode} colors={colors} setSettings={setSettings} defaultSettings={defaultSettings} settings={settings} />
+            <Settings
+                setMode={setMode}
+                colors={colors}
+                setSettings={setSettings} defaultSettings={defaultSettings} settings={settings}
+            />
         )
     }
 }
