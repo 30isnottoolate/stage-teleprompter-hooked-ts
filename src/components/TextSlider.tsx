@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useEventListener from '../utilities/useEventListener';
+import colors from '../utilities/colors';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -11,7 +12,6 @@ interface TextSliderProps {
 	textCount: number,
 	textIndex: number,
 	setTextIndex: Function,
-	colors: {},
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -22,7 +22,7 @@ interface TextSliderProps {
 	}
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ setMode, data, textCount, textIndex, setTextIndex, colors, settings }: TextSliderProps) => {
+const TextSlider: React.FC<TextSliderProps> = ({ setMode, data, textCount, textIndex, setTextIndex, settings }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
 	const [position, setPosition] = useState(0);
 	const [currentText, setCurrentText] = useState("Loading...");

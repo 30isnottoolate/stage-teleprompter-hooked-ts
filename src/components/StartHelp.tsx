@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import useEventListener from '../utilities/useEventListener';
+import colors from '../utilities/colors';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface StartHelpProps {
 	setMode: Function,
-	colors: {},
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -16,7 +16,7 @@ interface StartHelpProps {
 	}
 }
 
-const StartHelp: React.FC<StartHelpProps> = ({ colors, settings, setMode }: StartHelpProps) => {
+const StartHelp: React.FC<StartHelpProps> = ({ settings, setMode }: StartHelpProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useEventListener from '../utilities/useEventListener';
+import colors from '../utilities/colors';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -9,7 +10,6 @@ interface TextListProps {
 	textCount: number,
 	textIndex: number,
 	setTextIndex: Function,
-	colors: {},
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -20,7 +20,7 @@ interface TextListProps {
 	}
 }
 
-const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex, setTextIndex, colors, settings }: TextListProps) => {
+const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex, setTextIndex, settings }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import useEventListener from '../utilities/useEventListener';
+import colors from '../utilities/colors';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface SettingsProps {
 	setMode: Function,
-	colors: {},
 	setSettings: Function,
 	defaultSettings: Function,
 	settings: {
@@ -18,7 +18,7 @@ interface SettingsProps {
 	}
 }
 
-const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, colors, settings, setSettings }: SettingsProps) => {
+const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, settings, setSettings }: SettingsProps) => {
 	const [settingsIndex, setSettingsIndex] = useState(1);
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);

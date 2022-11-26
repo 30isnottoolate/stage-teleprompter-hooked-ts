@@ -12,14 +12,6 @@ const TEXT_SPEED_DEFAULT = 100;
 const HOLD_TIME_DEFAULT = 2000;
 const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
-const colors = {
-    1: { "name": "red", "code": "#ffd6d9" },
-    2: { "name": "green", "code": "#b4f8ff" },
-    3: { "name": "blue", "code": "#99d3ff" },
-    4: { "name": "white", "code": "#ffffff" },
-    5: { "name": "yellow", "code": "#fff4ad" },
-}
-
 const App: React.FC = () => {
     const [mode, setMode] = useState("start");
     const [data, setData] = useState({ texts: { text_: { title: "", url: "" } } });
@@ -89,7 +81,6 @@ const App: React.FC = () => {
         return (
             <StartHelp
                 setMode={setMode}
-                colors={colors}
                 settings={settings}
             />
         )
@@ -99,7 +90,6 @@ const App: React.FC = () => {
                 setMode={setMode}
                 data={data}
                 textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex}
-                colors={colors}
                 settings={settings}
             />
         )
@@ -109,7 +99,6 @@ const App: React.FC = () => {
                 setMode={setMode}
                 data={data}
                 textCount={textCount} textIndex={textIndex} setTextIndex={setTextIndex}
-                colors={colors}
                 settings={settings}
             />
         )
@@ -117,7 +106,6 @@ const App: React.FC = () => {
         return (
             <Settings
                 setMode={setMode}
-                colors={colors}
                 setSettings={setSettings} defaultSettings={defaultSettings} settings={settings}
             />
         )
