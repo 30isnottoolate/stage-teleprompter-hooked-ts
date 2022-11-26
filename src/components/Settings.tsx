@@ -98,7 +98,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				case 3:
 					if (settings.colorIndex > 1) {
 						changeSettings("colorIndex", -1);
-					}
+					} else changeSettings("colorIndex", 4);
 					break;
 				case 4:
 					if (settings.textSpeed > 20) {
@@ -141,7 +141,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				case 3:
 					if (settings.colorIndex < 5) {
 						changeSettings("colorIndex", +1);
-					}
+					} else changeSettings("colorIndex", -4);
 					break;
 				case 4:
 					if (settings.textSpeed < 200) {
