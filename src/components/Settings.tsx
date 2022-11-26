@@ -231,17 +231,20 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 			</ul>
 			<div id="control" style={{ width: responsiveWidth }}>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonAPushDown}
 					mouseUpHandler={handleButtonAPushUp}
 					icon="selectList"
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonBUpDecrease}
 					icon={inChangeMode ? "left" : "up"}
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonCDownIncrease}
 					icon={inChangeMode ? "right" : "down"}

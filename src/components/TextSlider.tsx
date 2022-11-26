@@ -192,16 +192,19 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setT
 				className={active ? "transparent" : "visible"}
 				style={{ width: responsiveWidth }}>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonASet}
 					icon="settings"
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonBList}
 					icon="list"
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonCStartStop}
 					icon={endReached ? "next" : active ? "pause" : "play"}

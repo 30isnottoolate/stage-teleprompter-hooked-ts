@@ -2,6 +2,7 @@ import React from 'react';
 import icons from '../utilities/icons';
 
 interface ControlButtonProps {
+    fontSize: number,
     stateColor: string,
     clickHandler?: () => void,
     mouseDownHandler: () => void,
@@ -9,7 +10,8 @@ interface ControlButtonProps {
     icon: string
 }
 
-const ControlButton: React.FC<ControlButtonProps> = ({stateColor, clickHandler, mouseDownHandler, mouseUpHandler, icon}: ControlButtonProps) => {
+const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, clickHandler, mouseDownHandler, mouseUpHandler, icon}: ControlButtonProps) => {
+    let svgSize = 50 + fontSize * 0.25;
     return (
         <button
             style={{ borderColor: stateColor }}
@@ -18,8 +20,8 @@ const ControlButton: React.FC<ControlButtonProps> = ({stateColor, clickHandler, 
             onMouseUp={mouseUpHandler}
         >
             <svg
-                width={(icon === "selectSettings" || icon === "selectList") ? 70 * 2.25 : 70}
-                height={80}
+                width={(icon === "selectSettings" || icon === "selectList") ? svgSize * 2.25 : svgSize}
+                height={svgSize}
                 fill={stateColor}
                 viewBox={`0 0 ${(icon === "selectSettings" || icon === "selectList") ? 36 : 16} 16`}
             >

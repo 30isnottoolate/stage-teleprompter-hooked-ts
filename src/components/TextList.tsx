@@ -128,17 +128,20 @@ const TextList: React.FC<TextListProps> = ({ settings, data, textIndex, setTextI
 				/>
 				<div id="control" style={{ width: responsiveWidth }}>
 					<ControlButton
+						fontSize={settings.fontSize}
 						stateColor={stateColor}
 						mouseDownHandler={handleButtonAPushDown}
 						mouseUpHandler={handleButtonAPushUp}
 						icon="selectSettings"
 					/>
 					<ControlButton
+						fontSize={settings.fontSize}
 						stateColor={stateColor}
 						mouseDownHandler={handleButtonBUp}
 						icon="up"
 					/>
 					<ControlButton
+						fontSize={settings.fontSize}
 						stateColor={stateColor}
 						mouseDownHandler={handleButtonCDown}
 						icon="down"

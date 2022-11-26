@@ -115,16 +115,19 @@ const StartHelp: React.FC<StartHelpProps> = ({ settings, setMode }: StartHelpPro
 			</ul>
 			<div id="control" style={{ width: responsiveWidth }}>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonASet}
 					icon="settings"
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonBList}
 					icon="list"
 				/>
 				<ControlButton
+					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonCDown}
 					icon="down"
