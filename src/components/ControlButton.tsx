@@ -4,18 +4,16 @@ import icons from '../utilities/icons';
 interface ControlButtonProps {
     fontSize: number,
     stateColor: string,
-    clickHandler?: () => void,
     mouseDownHandler: () => void,
     mouseUpHandler?: () => void,
     icon: string
 }
 
-const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, clickHandler, mouseDownHandler, mouseUpHandler, icon}: ControlButtonProps) => {
+const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon}: ControlButtonProps) => {
     let svgSize = 50 + fontSize * 0.25;
     return (
         <button
             style={{ borderColor: stateColor }}
-            onClick={clickHandler}
             onMouseDown={mouseDownHandler}
             onMouseUp={mouseUpHandler}
         >
