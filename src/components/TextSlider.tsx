@@ -9,7 +9,6 @@ const READ_SPEED_COEF = 0.0151; // char/ms
 interface TextSliderProps {
 	setMode: Function,
 	data: { texts: { text_: { title: string } } },
-	textCount: number,
 	textIndex: number,
 	setTextIndex: Function,
 	settings: {
@@ -22,7 +21,7 @@ interface TextSliderProps {
 	}
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ setMode, data, textCount, textIndex, setTextIndex, settings }: TextSliderProps) => {
+const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setTextIndex, setMode }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
 	const [position, setPosition] = useState(0);
 	const [currentText, setCurrentText] = useState("Loading...");
@@ -84,7 +83,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ setMode, data, textCount, textI
 	}
 
 	const nextText = () => {
-		if (textIndex < textCount) {
+		if (textIndex < Object.keys(data.texts).length) {
 			setTextIndex((prevState: number) => {
 				fetchText(prevState + 1);
 				return prevState + 1;

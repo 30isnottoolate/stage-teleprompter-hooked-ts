@@ -7,7 +7,6 @@ import ControlButton from './ControlButton';
 interface TextListProps {
 	setMode: Function,
 	data: { texts: { text_: { title: string } } },
-	textCount: number,
 	textIndex: number,
 	setTextIndex: Function,
 	settings: {
@@ -20,7 +19,7 @@ interface TextListProps {
 	}
 }
 
-const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex, setTextIndex, settings }: TextListProps) => {
+const TextList: React.FC<TextListProps> = ({ settings, data, textIndex, setTextIndex, setMode }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
@@ -61,12 +60,12 @@ const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex
 		if (textIndex > 1) {
 			setTextIndex((prevState: number) => prevState - 1);
 		} else {
-			setTextIndex(textCount);
+			setTextIndex(Object.keys(data.texts).length);
 		}
 	}
 
 	const handleButtonCDown = () => {
-		if (textIndex < textCount) {
+		if (textIndex < Object.keys(data.texts).length) {
 			setTextIndex((prevState: number) => prevState + 1);
 		} else {
 			setTextIndex(1);
@@ -81,7 +80,7 @@ const TextList: React.FC<TextListProps> = ({ setMode, data, textCount, textIndex
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
-	if (textCount === 0) {
+	if (Object.keys(data.texts).length === 0) {
 		return (
 			<div
 				id="text-list"

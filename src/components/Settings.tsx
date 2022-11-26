@@ -18,7 +18,7 @@ interface SettingsProps {
 	}
 }
 
-const Settings: React.FC<SettingsProps> = ({ setMode, defaultSettings, settings, setSettings }: SettingsProps) => {
+const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSettings, setMode }: SettingsProps) => {
 	const [settingsIndex, setSettingsIndex] = useState(1);
 	const [inChangeMode, setInChangeMode] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
