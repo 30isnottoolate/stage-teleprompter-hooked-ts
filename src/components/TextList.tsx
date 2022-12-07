@@ -6,7 +6,7 @@ import ControlButton from './ControlButton';
 
 interface TextListProps {
 	setMode: Function,
-	data: { texts: { text_: { title: string } } },
+	library: { texts: [{ title: string, content: string }] },
 	textIndex: number,
 	setTextIndex: Function,
 	settings: {
@@ -19,7 +19,7 @@ interface TextListProps {
 	}
 }
 
-const TextList: React.FC<TextListProps> = ({ settings, data, textIndex, setTextIndex, setMode }: TextListProps) => {
+const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTextIndex, setMode }: TextListProps) => {
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
 

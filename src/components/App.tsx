@@ -13,8 +13,9 @@ const HOLD_TIME_DEFAULT = 2000;
 const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
 const App: React.FC = () => {
-    const [mode, setMode] = useState("start");
-    const [library, setLibrary] = useState({ texts: [{ title: "", content: "" }] });
+    const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
+    ({ texts: [{ title: "", content: "" }] });
+
     const [textIndex, setTextIndex] = useState(1);
     const [settings, setSettings] = useState({
         fontSize: FONT_SIZE_DEFAULT,
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         holdButtonTime: HOLD_TIME_DEFAULT,
         orientation: ORIENTATION_DEFAULT
     });
+    const [mode, setMode] = useState("start");
 
     useEffect(() => {
         fetch('librarian.json', {
