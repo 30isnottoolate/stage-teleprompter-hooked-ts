@@ -28,7 +28,7 @@ const App: React.FC = () => {
     const [mode, setMode] = useState("start");
 
     useEffect(() => {
-        fetch('librarian.json', {
+        fetch('library.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
