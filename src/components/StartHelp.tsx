@@ -5,7 +5,6 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface StartHelpProps {
-	setMode: Function,
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -13,7 +12,8 @@ interface StartHelpProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	}
+	},
+	setMode: Function
 }
 
 const StartHelp: React.FC<StartHelpProps> = ({ settings, setMode }: StartHelpProps) => {

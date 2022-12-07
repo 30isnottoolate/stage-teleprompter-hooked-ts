@@ -7,7 +7,6 @@ import ControlButton from './ControlButton';
 const READ_SPEED_COEF = 0.0151; // char/ms
 
 interface TextSliderProps {
-	setMode: Function,
 	library: { texts: [{ title: string, content: string }] },
 	textIndex: number,
 	setTextIndex: Function,
@@ -18,7 +17,8 @@ interface TextSliderProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	}
+	},
+	setMode: Function
 }
 
 const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, setTextIndex, setMode }: TextSliderProps) => {
@@ -163,7 +163,8 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 					left: (settings.fontSize * 0.69),
 					transitionProperty: settings.textSpeed < 50 ? "top" : "none"
 				}} >
-				<p id="text" dangerouslySetInnerHTML={{ __html: library.texts[textIndex].content ? library.texts[textIndex].content : "Loading..." }} />
+				<p id="text" dangerouslySetInnerHTML={{ __html: 
+					library.texts[textIndex].content ? library.texts[textIndex].content : "Loading..." }} />
 			</div>
 			<div
 				id="control"
