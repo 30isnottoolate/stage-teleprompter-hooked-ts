@@ -64,7 +64,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 	}
 
 	const nextText = () => {
-		if (textIndex < library.texts.length) {
+		if (textIndex < library.texts.length - 1) {
 			setTextIndex((prevState: number) => prevState + 1);
 		} else setTextIndex(0);
 

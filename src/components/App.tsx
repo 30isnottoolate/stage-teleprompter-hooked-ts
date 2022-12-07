@@ -16,7 +16,7 @@ const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
     ({ texts: [{ title: "", content: "" }] });
 
-    const [textIndex, setTextIndex] = useState(1);
+    const [textIndex, setTextIndex] = useState(0);
     const [settings, setSettings] = useState({
         fontSize: FONT_SIZE_DEFAULT,
         lineHeight: LINE_HEIGHT_DEFAULT,

@@ -57,25 +57,25 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 	}
 
 	const handleButtonBUp = () => {
-		if (textIndex > 1) {
+		if (textIndex > 0) {
 			setTextIndex((prevState: number) => prevState - 1);
 		} else {
-			setTextIndex(library.texts.length);
+			setTextIndex(library.texts.length - 1);
 		}
 	}
 
 	const handleButtonCDown = () => {
-		if (textIndex < library.texts.length) {
+		if (textIndex < library.texts.length - 1) {
 			setTextIndex((prevState: number) => prevState + 1);
 		} else {
-			setTextIndex(1);
+			setTextIndex(0);
 		}
 	}
 
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
-	let listPos = (2 - textIndex) * settings.fontSize * settings.lineHeight;
+	let listPos = (1 - textIndex) * settings.fontSize * settings.lineHeight;
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
@@ -102,7 +102,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 				}}>
 				<p
 					id="head-line"
-					className={textIndex === 1 ? "visible" : "hidden"}>
+					className={textIndex === 0 ? "visible" : "hidden"}>
 					SELECT:
 				</p>
 				<ul
