@@ -8,7 +8,7 @@ const READ_SPEED_COEF = 0.0151; // char/ms
 
 interface TextSliderProps {
 	setMode: Function,
-	data: { texts: { text_: { title: string } } },
+	library: { texts: [{ title: string, content: string }] },
 	textIndex: number,
 	setTextIndex: Function,
 	settings: {
@@ -21,10 +21,9 @@ interface TextSliderProps {
 	}
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setTextIndex, setMode }: TextSliderProps) => {
+const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, setTextIndex, setMode }: TextSliderProps) => {
 	const [active, setActive] = useState(false);
 	const [position, setPosition] = useState(0);
-	const [currentText, setCurrentText] = useState("Loading...");
 	const [endReached, setEndReached] = useState(false);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
@@ -32,8 +31,8 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setT
 	const slideRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		fetchText(textIndex);
-	}, [textIndex]);
+		setPosition(settings.fontSize * settings.lineHeight);
+	}, []);
 
 	useEffect(() => {
 		let intervalID: ReturnType<typeof setInterval>;
@@ -41,13 +40,13 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setT
 		let intervalValue: number;
 
 		if (slideRef.current && active) {
-			noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(currentText);
-			intervalValue = (currentText.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
+			noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(library.texts[textIndex].content);
+			intervalValue = (library.texts[textIndex].content.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
 			intervalID = setInterval(() => setPosition((prevState) => prevState - 1), intervalValue);
 		}
 
 		return () => clearInterval(intervalID);
-	}, [currentText, active]);
+	}, [active]);
 
 	useEffect(() => {
 		if (slideRef.current) {
@@ -64,34 +63,15 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setT
 		return (input.match(/^[ ]*$/gm) || []).length;
 	}
 
-	const fetchText = (index: number) => {
-		fetch(data.texts["text_" + index].url, {
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			}
-		})
-			.then(response => response.text())
-			.then(text => {
-				setPosition(settings.fontSize * settings.lineHeight);
-				setCurrentText(text);
-				setEndReached(false);
-				setKeyHold(false);
-				setKeyDownTime(0);
-			})
-			.catch(() => console.log("Text missing."));
-	}
-
 	const nextText = () => {
-		if (textIndex < Object.keys(data.texts).length) {
-			setTextIndex((prevState: number) => {
-				fetchText(prevState + 1);
-				return prevState + 1;
-			});
-		} else {
-			fetchText(1);
-			setTextIndex(1);
-		}
+		if (textIndex < library.texts.length) {
+			setTextIndex((prevState: number) => prevState + 1);
+		} else setTextIndex(0);
+
+		setPosition(settings.fontSize * settings.lineHeight);
+		setEndReached(false);
+		setKeyHold(false);
+		setKeyDownTime(0);
 	}
 
 	const handleKeyDown = (event: KeyboardEvent) => {
@@ -183,9 +163,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, data, textIndex, setT
 					left: (settings.fontSize * 0.69),
 					transitionProperty: settings.textSpeed < 50 ? "top" : "none"
 				}} >
-				<p id="text">
-					{currentText}
-				</p>
+				<p id="text" dangerouslySetInnerHTML={{ __html: library.texts[textIndex].content ? library.texts[textIndex].content : "Loading..." }} />
 			</div>
 			<div
 				id="control"
