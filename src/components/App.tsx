@@ -14,7 +14,7 @@ const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start");
-    const [data, setData] = useState({ texts: { text_: { title: "", url: "" } } });
+    const [library, setLibrary] = useState({ texts: [{ title: "", url: "" }] });
     const [textIndex, setTextIndex] = useState(1);
     const [settings, setSettings] = useState({
         fontSize: FONT_SIZE_DEFAULT,
@@ -36,7 +36,7 @@ const App: React.FC = () => {
             .then(data => {
                 if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
                     localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
-                    setData(data);
+                    setLibrary(data);
                     setSettings({
                         fontSize: parseInt(localStorage.getItem("fontSize") || FONT_SIZE_DEFAULT.toString()),
                         lineHeight: parseFloat(localStorage.getItem("lineHeight") || LINE_HEIGHT_DEFAULT.toString()),
@@ -46,7 +46,7 @@ const App: React.FC = () => {
                         orientation: localStorage.getItem("orientation") || ORIENTATION_DEFAULT
                     });
                 } else {
-                    setData(data);
+                    setLibrary(data);
                     defaultSettings();
                 }
             })
@@ -85,7 +85,7 @@ const App: React.FC = () => {
         return (
             <TextList
                 settings={settings}
-                data={data}
+                library={library}
                 textIndex={textIndex} setTextIndex={setTextIndex}
                 setMode={setMode}
             />
@@ -94,7 +94,7 @@ const App: React.FC = () => {
         return (
             <TextSlider
                 settings={settings}
-                data={data}
+                library={library}
                 textIndex={textIndex} setTextIndex={setTextIndex}
                 setMode={setMode}
             />
