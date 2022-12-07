@@ -60,12 +60,12 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 		if (textIndex > 1) {
 			setTextIndex((prevState: number) => prevState - 1);
 		} else {
-			setTextIndex(Object.keys(data.texts).length);
+			setTextIndex(library.texts.length);
 		}
 	}
 
 	const handleButtonCDown = () => {
-		if (textIndex < Object.keys(data.texts).length) {
+		if (textIndex < library.texts.length) {
 			setTextIndex((prevState: number) => prevState + 1);
 		} else {
 			setTextIndex(1);
@@ -75,12 +75,11 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
-	let titles = [""];
 	let listPos = (2 - textIndex) * settings.fontSize * settings.lineHeight;
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
-	if (Object.keys(data.texts).length === 0) {
+	if (library.texts.length < 1) {
 		return (
 			<div
 				id="text-list"
@@ -92,10 +91,6 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 			</div>
 		)
 	} else {
-		for (const item in data.texts) {
-			titles.push(data.texts[item as keyof typeof data.texts].title);
-		}
-
 		return (
 			<div
 				id="text-list"
@@ -117,7 +112,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 						width: `calc(${responsiveWidth} - ${(settings.fontSize * 0.69)}px)`
 					}}
 				>
-					{titles.map((item, index) => <li key={index}>{item}</li>)}
+					{library.texts.map((item, index) => <li key={index}>{item.title}</li>)}
 				</ul>
 				<Marker
 					top={settings.fontSize * settings.lineHeight}
