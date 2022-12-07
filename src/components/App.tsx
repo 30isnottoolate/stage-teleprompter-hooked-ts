@@ -14,7 +14,7 @@ const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
 const App: React.FC = () => {
     const [mode, setMode] = useState("start");
-    const [library, setLibrary] = useState({ texts: [{ title: "", url: "" }] });
+    const [library, setLibrary] = useState({ texts: [{ title: "", content: "" }] });
     const [textIndex, setTextIndex] = useState(1);
     const [settings, setSettings] = useState({
         fontSize: FONT_SIZE_DEFAULT,
