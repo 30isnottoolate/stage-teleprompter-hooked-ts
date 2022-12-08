@@ -14,7 +14,7 @@ const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
 const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
-    ({ texts: [{ title: "", content: "" }] });
+        ({ texts: [{ title: "", content: "" }] });
 
     const [textIndex, setTextIndex] = useState(0);
     const [settings, setSettings] = useState({
@@ -36,24 +36,36 @@ const App: React.FC = () => {
         })
             .then(response => response.json())
             .then(data => {
-                if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
-                    localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
-                    setLibrary(data);
-                    setSettings({
-                        fontSize: parseInt(localStorage.getItem("fontSize") || FONT_SIZE_DEFAULT.toString()),
-                        lineHeight: parseFloat(localStorage.getItem("lineHeight") || LINE_HEIGHT_DEFAULT.toString()),
-                        colorIndex: parseInt(localStorage.getItem("colorIndex") || COLOR_INDEX_DEFAULT.toString()),
-                        textSpeed: parseInt(localStorage.getItem("textSpeed") || TEXT_SPEED_DEFAULT.toString()),
-                        holdButtonTime: parseInt(localStorage.getItem("holdButtonTime") || HOLD_TIME_DEFAULT.toString()),
-                        orientation: localStorage.getItem("orientation") || ORIENTATION_DEFAULT
-                    });
-                } else {
-                    setLibrary(data);
-                    defaultSettings();
-                }
+                if (data.librarian === validateLibrary(data.texts)) {
+                    if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
+                        localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
+                        setLibrary(data);
+                        setSettings({
+                            fontSize: parseInt(localStorage.getItem("fontSize") || FONT_SIZE_DEFAULT.toString()),
+                            lineHeight: parseFloat(localStorage.getItem("lineHeight") || LINE_HEIGHT_DEFAULT.toString()),
+                            colorIndex: parseInt(localStorage.getItem("colorIndex") || COLOR_INDEX_DEFAULT.toString()),
+                            textSpeed: parseInt(localStorage.getItem("textSpeed") || TEXT_SPEED_DEFAULT.toString()),
+                            holdButtonTime: parseInt(localStorage.getItem("holdButtonTime") || HOLD_TIME_DEFAULT.toString()),
+                            orientation: localStorage.getItem("orientation") || ORIENTATION_DEFAULT
+                        });
+                    } else {
+                        setLibrary(data);
+                        defaultSettings();
+                    }
+                } else console.log("invalid");
             })
             .catch(() => console.log("Database missing."));
     }, []);
+
+    const validateLibrary = (texts: typeof library.texts) => {
+        let validationCode = "11";
+
+        texts.forEach((item) => {
+            validationCode += (item.title.length.toString(16) + item.content.length.toString(16));
+        });
+
+        return validationCode += "22";
+    }
 
     const defaultLocalStorage = () => {
         localStorage.setItem("fontSize", FONT_SIZE_DEFAULT.toString());
