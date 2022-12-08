@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
 import Marker from './Marker';
@@ -163,8 +164,10 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 					left: (settings.fontSize * 0.69),
 					transitionProperty: settings.textSpeed < 50 ? "top" : "none"
 				}} >
-				<p id="text" dangerouslySetInnerHTML={{ __html: 
-					library.texts[textIndex].content ? library.texts[textIndex].content : "Loading..." }} />
+				<p id="text" dangerouslySetInnerHTML={{
+					__html:
+						DOMPurify.sanitize(library.texts[textIndex].content ? library.texts[textIndex].content : "Loading...")
+				}} />
 			</div>
 			<div
 				id="control"
