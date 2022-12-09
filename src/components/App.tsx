@@ -48,18 +48,24 @@ const App: React.FC = () => {
         })
             .then(response => response.json())
             .then(data => {
+                if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
+                    localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
+                    setSettings({ ...localStorageStates });
+                } else {
+                    defaultSettings();
+                }
+
                 if (data.librarian === validateLibrary(data.texts)) {
-                    if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
-                        localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
-                        setLibrary(data);
-                        setSettings({...localStorageStates});
-                    } else {
-                        setLibrary(data);
-                        defaultSettings();
-                    }
-                } else console.log("invalid");
+                    setLibrary(data);
+                    setLibraryStatus("valid");
+                } else {
+                    setLibraryStatus("invalid");
+                }
             })
-            .catch(() => console.log("Database missing."));
+            .catch(() => {
+                setLibraryStatus("missing");
+                console.log("Database missing.");
+            });
     }, []);
 
     const validateLibrary = (texts: typeof library.texts) => {
