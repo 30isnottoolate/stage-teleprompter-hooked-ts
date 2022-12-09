@@ -12,19 +12,31 @@ const TEXT_SPEED_DEFAULT = 100;
 const HOLD_TIME_DEFAULT = 2000;
 const ORIENTATION_DEFAULT = "horizontal"; // horizontal / vertical
 
+const DEFAULT_STATES = {
+    fontSize: FONT_SIZE_DEFAULT,
+    lineHeight: LINE_HEIGHT_DEFAULT,
+    colorIndex: COLOR_INDEX_DEFAULT,
+    textSpeed: TEXT_SPEED_DEFAULT,
+    holdButtonTime: HOLD_TIME_DEFAULT,
+    orientation: ORIENTATION_DEFAULT
+}
+
+const localStorageStates = {
+    fontSize: parseInt(localStorage.getItem("fontSize") || FONT_SIZE_DEFAULT.toString()),
+    lineHeight: parseFloat(localStorage.getItem("lineHeight") || LINE_HEIGHT_DEFAULT.toString()),
+    colorIndex: parseInt(localStorage.getItem("colorIndex") || COLOR_INDEX_DEFAULT.toString()),
+    textSpeed: parseInt(localStorage.getItem("textSpeed") || TEXT_SPEED_DEFAULT.toString()),
+    holdButtonTime: parseInt(localStorage.getItem("holdButtonTime") || HOLD_TIME_DEFAULT.toString()),
+    orientation: localStorage.getItem("orientation") || ORIENTATION_DEFAULT
+}
+
 const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
         ({ texts: [{ title: "", content: "" }] });
 
+    const [libraryStatus, setLibraryStatus] = useState("checking"); //checking, missing, invalid, valid
     const [textIndex, setTextIndex] = useState(0);
-    const [settings, setSettings] = useState({
-        fontSize: FONT_SIZE_DEFAULT,
-        lineHeight: LINE_HEIGHT_DEFAULT,
-        colorIndex: COLOR_INDEX_DEFAULT,
-        textSpeed: TEXT_SPEED_DEFAULT,
-        holdButtonTime: HOLD_TIME_DEFAULT,
-        orientation: ORIENTATION_DEFAULT
-    });
+    const [settings, setSettings] = useState({ ...DEFAULT_STATES });
     const [mode, setMode] = useState("start");
 
     useEffect(() => {
@@ -40,14 +52,7 @@ const App: React.FC = () => {
                     if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
                         localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
                         setLibrary(data);
-                        setSettings({
-                            fontSize: parseInt(localStorage.getItem("fontSize") || FONT_SIZE_DEFAULT.toString()),
-                            lineHeight: parseFloat(localStorage.getItem("lineHeight") || LINE_HEIGHT_DEFAULT.toString()),
-                            colorIndex: parseInt(localStorage.getItem("colorIndex") || COLOR_INDEX_DEFAULT.toString()),
-                            textSpeed: parseInt(localStorage.getItem("textSpeed") || TEXT_SPEED_DEFAULT.toString()),
-                            holdButtonTime: parseInt(localStorage.getItem("holdButtonTime") || HOLD_TIME_DEFAULT.toString()),
-                            orientation: localStorage.getItem("orientation") || ORIENTATION_DEFAULT
-                        });
+                        setSettings({...localStorageStates});
                     } else {
                         setLibrary(data);
                         defaultSettings();
@@ -78,12 +83,7 @@ const App: React.FC = () => {
 
     const defaultSettings = () => {
         setSettings({
-            fontSize: FONT_SIZE_DEFAULT,
-            lineHeight: LINE_HEIGHT_DEFAULT,
-            colorIndex: COLOR_INDEX_DEFAULT,
-            textSpeed: TEXT_SPEED_DEFAULT,
-            holdButtonTime: HOLD_TIME_DEFAULT,
-            orientation: ORIENTATION_DEFAULT
+            ...DEFAULT_STATES
         });
         defaultLocalStorage();
     }
