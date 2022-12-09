@@ -6,16 +6,18 @@ interface ControlButtonProps {
     stateColor: string,
     mouseDownHandler: () => void,
     mouseUpHandler?: () => void,
-    icon: string
+    icon: string,
+    disabled?: boolean
 }
 
-const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon}: ControlButtonProps) => {
+const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon, disabled}: ControlButtonProps) => {
     let svgSize = 50 + fontSize * 0.25;
     return (
         <button
             style={{ borderColor: stateColor }}
             onMouseDown={mouseDownHandler}
             onMouseUp={mouseUpHandler}
+            disabled={disabled ? disabled : false}
         >
             <svg
                 width={(icon === "selectSettings" || icon === "selectList") ? svgSize * 2.25 : svgSize}
