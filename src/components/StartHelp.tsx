@@ -17,7 +17,7 @@ interface StartHelpProps {
 	setMode: Function
 }
 
-const StartHelp: React.FC<StartHelpProps> = ({ settings, setMode }: StartHelpProps) => {
+const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, setMode }: StartHelpProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
@@ -126,6 +126,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ settings, setMode }: StartHelpPro
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonBList}
 					icon="list"
+					disabled={libraryStatus !== "valid" ? true : false}
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
