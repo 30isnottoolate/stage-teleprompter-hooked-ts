@@ -13,6 +13,7 @@ interface StartHelpProps {
 		holdButtonTime: number,
 		orientation: string
 	},
+	libraryStatus: string,
 	setMode: Function
 }
 

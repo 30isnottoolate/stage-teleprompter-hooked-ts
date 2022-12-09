@@ -34,10 +34,10 @@ const App: React.FC = () => {
     const [library, setLibrary] = useState<{ texts: [{ title: string, content: string }] }>
         ({ texts: [{ title: "", content: "" }] });
 
-    const [libraryStatus, setLibraryStatus] = useState("checking"); //checking, missing, invalid, valid
+    const [libraryStatus, setLibraryStatus] = useState("checking"); // checking, missing, invalid, valid
     const [textIndex, setTextIndex] = useState(0);
     const [settings, setSettings] = useState({ ...DEFAULT_STATES });
-    const [mode, setMode] = useState("start");
+    const [mode, setMode] = useState("start"); // start, select, read, set
 
     useEffect(() => {
         fetch('library.json', {
@@ -98,6 +98,7 @@ const App: React.FC = () => {
         return (
             <StartHelp
                 settings={settings}
+                libraryStatus={libraryStatus}
                 setMode={setMode}
             />
         )
