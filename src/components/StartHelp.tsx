@@ -125,8 +125,7 @@ const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, setMode 
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonBList}
-					icon="list"
-					disabled={libraryStatus !== "valid" ? true : false}
+					icon={libraryStatus === "valid" ? "list" : "refresh"}
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
