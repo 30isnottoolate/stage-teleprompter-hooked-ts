@@ -25,7 +25,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key === "a") {
-			handleButtonAPushDown();
+			handleButtonAKeyDown();
 		} else if (event.key === "b" && !event.repeat) {
 			handleButtonBUp();
 		} else if (event.key === "c" && !event.repeat) {
@@ -35,21 +35,21 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 
 	const handleKeyUp = (event: KeyboardEvent) => {
 		if (event.key === "a") {
-			handleButtonAPushUp();
+			handleButtonAKeyUp();
 		}
 	}
 
-	const handleButtonAPushDown = () => {
+	const handleButtonAKeyDown = () => {
 		if (!keyHold) {
 			setKeyHold(true);
 			setKeyDownTime((new Date()).getTime());
 		}
 	}
 
-	const handleButtonAPushUp = () => {
+	const handleButtonAKeyUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				setMode("set");
+				setMode("start");
 			} else {
 				setMode("read");
 			}
@@ -125,9 +125,9 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 					<ControlButton
 						fontSize={settings.fontSize}
 						stateColor={stateColor}
-						mouseDownHandler={handleButtonAPushDown}
-						mouseUpHandler={handleButtonAPushUp}
-						icon="selectSettings"
+						mouseDownHandler={handleButtonAKeyDown}
+						mouseUpHandler={handleButtonAKeyUp}
+						icon="selectHome"
 					/>
 					<ControlButton
 						fontSize={settings.fontSize}

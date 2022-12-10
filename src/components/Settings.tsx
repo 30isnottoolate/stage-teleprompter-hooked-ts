@@ -26,7 +26,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key === "a") {
-			handleButtonAPushDown();
+			handleButtonAKeyDown();
 		} else {
 			if ((!inChangeMode && !event.repeat) || inChangeMode) {
 				if (event.key === "b") {
@@ -40,11 +40,11 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 
 	const handleKeyUp = (event: KeyboardEvent) => {
 		if (event.key === "a") {
-			handleButtonAPushUp();
+			handleButtonAKeyUp();
 		}
 	}
 
-	const handleButtonAPushDown = () => {
+	const handleButtonAKeyDown = () => {
 		if (!keyHold) {
 			if (!inChangeMode) {
 				setKeyHold(true);
@@ -55,17 +55,15 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 		}
 	}
 
-	const handleButtonAPushUp = () => {
+	const handleButtonAKeyUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				setMode("select");
+				setMode("start");
 			} else {
 				if (settingsIndex === 7) {
 					defaultSettings();
 					setKeyHold(false);
 					setKeyDownTime(0);
-				} else if (settingsIndex === 8) {
-					setMode("start");
 				} else {
 					setKeyHold(false);
 					setKeyDownTime(0);
@@ -120,7 +118,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 			if (settingsIndex > 1) {
 				setSettingsIndex((prevStates) => prevStates - 1);
 			} else {
-				setSettingsIndex(8);
+				setSettingsIndex(7);
 			}
 		}
 	}
@@ -160,7 +158,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					console.log("The impossible just happened.");
 			}
 		} else {
-			if (settingsIndex < 8) {
+			if (settingsIndex < 7) {
 				setSettingsIndex((prevStates) => prevStates + 1);
 			} else {
 				setSettingsIndex(1);
@@ -218,7 +216,6 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<li>Alt key time:</li>
 				<li>Orientation:</li>
 				<li>Default settings</li>
-				<li>Got to start screen</li>
 			</ul>
 			<ul style={{ top: listPosTop, left: listPosLeftB }}>
 				<li>{settings.fontSize}</li>
@@ -233,9 +230,9 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonAPushDown}
-					mouseUpHandler={handleButtonAPushUp}
-					icon="selectList"
+					mouseDownHandler={handleButtonAKeyDown}
+					mouseUpHandler={handleButtonAKeyUp}
+					icon="selectHome"
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}

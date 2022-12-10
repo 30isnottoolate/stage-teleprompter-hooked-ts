@@ -90,7 +90,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 		if (keyHold) {
 			if (event.key === "a") {
 				if (holdButtonCondition) {
-					handleButtonASet();
+					handleButtonAHome();
 				} else {
 					setKeyHold(false);
 					setKeyDownTime(0);
@@ -120,7 +120,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 		}
 	}
 
-	const handleButtonASet = () => setMode("set");
+	const handleButtonAHome = () => setMode("start");
 
 	const handleButtonBList = () => setMode("select");
 
@@ -176,8 +176,8 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonASet}
-					icon="settings"
+					mouseDownHandler={handleButtonAHome}
+					icon="home"
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}

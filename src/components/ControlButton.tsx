@@ -20,10 +20,10 @@ const ControlButton: React.FC<ControlButtonProps> = ({ fontSize, stateColor, mou
             disabled={disabled ? disabled : false}
         >
             <svg
-                width={(icon === "selectSettings" || icon === "selectList") ? svgSize * 2.25 : svgSize}
+                width={(icon === "selectHome") ? svgSize * 2.25 : svgSize}
                 height={svgSize}
                 fill={stateColor}
-                viewBox={`0 0 ${(icon === "selectSettings" || icon === "selectList") ? 36 : 16} 16`}
+                viewBox={`0 0 ${(icon === "selectHome") ? 36 : 16} 16`}
             >
                 {icons[icon]}
             </svg>
