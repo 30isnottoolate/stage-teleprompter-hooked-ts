@@ -14,10 +14,11 @@ interface StartHelpProps {
 		orientation: string
 	},
 	libraryStatus: string,
+	fetchLibrary: Function,
 	setMode: Function
 }
 
-const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, setMode }: StartHelpProps) => {
+const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: StartHelpProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
@@ -55,7 +56,11 @@ const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, setMode 
 
 	const handleButtonASet = () => setMode("set");
 
-	const handleButtonBList = () => setMode("select");
+	const handleButtonBList = () => {
+		if (libraryStatus === "valid") {
+			setMode("select");
+		} else fetchLibrary();
+	}
 
 	const handleButtonCDown = () => {
 		if (helpIndex < 5) {
