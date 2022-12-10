@@ -40,21 +40,21 @@ const App: React.FC = () => {
     const [mode, setMode] = useState("start"); // start, select, read, set
 
     useEffect(() => {
+        if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
+            localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
+            setSettings({ ...localStorageStates });
+        } else {
+            defaultSettings();
+        }
+
         fetch('library.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then(response => response.json()) 
             .then(data => {
-                if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
-                    localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
-                    setSettings({ ...localStorageStates });
-                } else {
-                    defaultSettings();
-                }
-
                 if (data.librarian === validateLibrary(data.texts)) {
                     setLibrary(data);
                     setLibraryStatus("valid");
