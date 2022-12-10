@@ -10,11 +10,11 @@ interface ControlButtonProps {
     disabled?: boolean
 }
 
-const ControlButton: React.FC<ControlButtonProps> = ({fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon, disabled}: ControlButtonProps) => {
+const ControlButton: React.FC<ControlButtonProps> = ({ fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon, disabled }: ControlButtonProps) => {
     let svgSize = 50 + fontSize * 0.25;
     return (
         <button
-            style={{ borderColor: stateColor }}
+            style={{ opacity: (disabled ? (disabled ? 0.5 : 1) : 1), borderColor: stateColor }}
             onMouseDown={mouseDownHandler}
             onMouseUp={mouseUpHandler}
             disabled={disabled ? disabled : false}
