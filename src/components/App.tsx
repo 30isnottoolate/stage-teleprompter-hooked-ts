@@ -46,7 +46,7 @@ const App: React.FC = () => {
         } else {
             defaultSettings();
         }
-        
+
         fetchLibrary();
     }, []);
 
@@ -104,6 +104,7 @@ const App: React.FC = () => {
             <StartHelp
                 settings={settings}
                 libraryStatus={libraryStatus}
+                fetchLibrary={fetchLibrary}
                 setMode={setMode}
             />
         )
