@@ -46,14 +46,19 @@ const App: React.FC = () => {
         } else {
             defaultSettings();
         }
+        
+        fetchLibrary();
+    }, []);
 
+    const fetchLibrary = () => {
+        console.log("fetching");
         fetch('library.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })
-            .then(response => response.json()) 
+            .then(response => response.json())
             .then(data => {
                 if (data.librarian === validateLibrary(data.texts)) {
                     setLibrary(data);
@@ -66,7 +71,7 @@ const App: React.FC = () => {
                 setLibraryStatus("missing");
                 console.log("Database missing.");
             });
-    }, []);
+    }
 
     const validateLibrary = (texts: typeof library.texts) => {
         let validationCode = "11";
