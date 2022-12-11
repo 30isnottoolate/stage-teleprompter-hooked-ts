@@ -100,7 +100,7 @@ const App: React.FC = () => {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.librarian === validateLibrary(data.texts)) {
+                if (data.librarian && data.librarian === validateLibrary(data.texts)) {
                     setLibrary(data);
                     setLibraryStatus("valid");
                 } else {
