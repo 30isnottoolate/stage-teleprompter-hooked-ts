@@ -51,7 +51,6 @@ const App: React.FC = () => {
     }, []);
 
     const fetchLibrary = () => {
-        console.log("fetching");
         fetch('library.json', {
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +68,6 @@ const App: React.FC = () => {
             })
             .catch(() => {
                 setLibraryStatus("missing");
-                console.log("Database missing.");
             });
     }
 
