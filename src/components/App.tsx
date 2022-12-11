@@ -40,8 +40,7 @@ const App: React.FC = () => {
     const [mode, setMode] = useState("start"); // start, select, read, set
 
     useEffect(() => {
-        if (localStorage["fontSize"] && localStorage["lineHeight"] && localStorage["colorIndex"] &&
-            localStorage["textSpeed"] && localStorage["holdButtonTime"] && localStorage["orientation"]) {
+        if (validateLocalStorage()) {
             setSettings({ ...localStorageStates });
         } else {
             defaultSettings();
@@ -50,6 +49,48 @@ const App: React.FC = () => {
         fetchLibrary();
     }, []);
 
+    const validateLocalStorage = () => {
+        let storageValidity = true;
+
+        if (!localStorage["fontSize"] ||
+            isNaN(parseInt(localStorage["fontSize"])) ||
+            parseInt(localStorage["fontSize"]) < 80 ||
+            parseInt(localStorage["fontSize"]) > 150) {
+                storageValidity = false;
+        }
+        if (!localStorage["lineHeight"] ||
+            isNaN(parseFloat(localStorage["lineHeight"])) ||
+            parseFloat(localStorage["lineHeight"]) < 1 ||
+            parseFloat(localStorage["lineHeight"]) > 1.5) {
+                storageValidity = false;
+        }
+        if (!localStorage["colorIndex"] ||
+            isNaN(parseInt(localStorage["colorIndex"])) ||
+            parseInt(localStorage["colorIndex"]) < 1 ||
+            parseInt(localStorage["colorIndex"]) > 5) {
+                storageValidity = false;
+        }
+        if (!localStorage["textSpeed"] ||
+            isNaN(parseInt(localStorage["textSpeed"])) ||
+            parseInt(localStorage["textSpeed"]) < 20 ||
+            parseInt(localStorage["textSpeed"]) > 200) {
+                storageValidity = false;
+        }
+        if (!localStorage["holdButtonTime"] ||
+            isNaN(parseInt(localStorage["holdButtonTime"])) ||
+            parseInt(localStorage["holdButtonTime"]) < 1000 ||
+            parseInt(localStorage["holdButtonTime"]) > 5000) {
+                storageValidity = false;
+        }
+        if (!localStorage["orientation"] ||
+            (localStorage["orientation"] !== "horizontal" && 
+            localStorage["orientation"] !== "vertical")) {
+                storageValidity = false;
+        }
+
+        return storageValidity;
+    }
+    
     const fetchLibrary = () => {
         fetch('library.json', {
             headers: {
