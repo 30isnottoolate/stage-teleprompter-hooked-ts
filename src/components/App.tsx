@@ -37,7 +37,7 @@ const App: React.FC = () => {
     const [libraryStatus, setLibraryStatus] = useState("checking"); // checking, missing, invalid, valid
     const [textIndex, setTextIndex] = useState(0);
     const [settings, setSettings] = useState({ ...DEFAULT_STATES });
-    const [mode, setMode] = useState("start"); // start, select, read, set
+    const [mode, setMode] = useState("start"); // start, list, read, set
 
     useEffect(() => {
         if (validateLocalStorage()) {
@@ -145,7 +145,7 @@ const App: React.FC = () => {
                 setMode={setMode}
             />
         )
-    } else if (mode === "select") {
+    } else if (mode === "list") {
         return (
             <TextList
                 settings={settings}

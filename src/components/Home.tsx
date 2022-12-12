@@ -58,7 +58,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 
 	const handleButtonBList = () => {
 		if (libraryStatus === "valid") {
-			setMode("select");
+			setMode("list");
 		} else fetchLibrary();
 	}
 

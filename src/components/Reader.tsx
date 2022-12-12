@@ -122,7 +122,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	const handleButtonAHome = () => setMode("start");
 
-	const handleButtonBList = () => setMode("select");
+	const handleButtonBList = () => setMode("list");
 
 	const handleButtonCStartStop = () => {
 		if (endReached) {
