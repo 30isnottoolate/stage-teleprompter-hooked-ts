@@ -105,7 +105,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					break;
 				case 5:
 					if (settings.holdButtonTime > 1000) {
-						changeSettings("holdButtonTime", -10);
+						changeSettings("holdButtonTime", -100);
 					}
 					break;
 				case 6:
@@ -148,7 +148,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					break;
 				case 5:
 					if (settings.holdButtonTime < 5000) {
-						changeSettings("holdButtonTime", +10);
+						changeSettings("holdButtonTime", +100);
 					}
 					break;
 				case 6:
@@ -222,7 +222,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<li>{settings.lineHeight.toFixed(2)}</li>
 				<li>{colors[settings.colorIndex].name}</li>
 				<li>{settings.textSpeed}%</li>
-				<li>{settings.holdButtonTime} ms</li>
+				<li>{(settings.holdButtonTime / 100).toFixed(1)} ms</li>
 				<li>{settings.orientation}</li>
 				<li></li>
 			</ul>
