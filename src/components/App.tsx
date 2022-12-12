@@ -37,7 +37,7 @@ const App: React.FC = () => {
     const [libraryStatus, setLibraryStatus] = useState("checking"); // checking, missing, invalid, valid
     const [textIndex, setTextIndex] = useState(0);
     const [settings, setSettings] = useState({ ...DEFAULT_STATES });
-    const [mode, setMode] = useState("start"); // start, list, read, set
+    const [mode, setMode] = useState("home"); // home, list, read, set
 
     useEffect(() => {
         if (validateLocalStorage()) {
@@ -136,7 +136,7 @@ const App: React.FC = () => {
         defaultLocalStorage();
     }
 
-    if (mode === "start") {
+    if (mode === "home") {
         return (
             <Home
                 settings={settings}

@@ -49,7 +49,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 	const handleButtonAKeyUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				setMode("start");
+				setMode("home");
 			} else {
 				setMode("read");
 			}

@@ -58,7 +58,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	const handleButtonAKeyUp = () => {
 		if (keyHold) {
 			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				setMode("start");
+				setMode("home");
 			} else {
 				if (settingsIndex === 7) {
 					defaultSettings();

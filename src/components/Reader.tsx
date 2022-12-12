@@ -120,7 +120,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 		}
 	}
 
-	const handleButtonAHome = () => setMode("start");
+	const handleButtonAHome = () => setMode("home");
 
 	const handleButtonBList = () => setMode("list");
 
