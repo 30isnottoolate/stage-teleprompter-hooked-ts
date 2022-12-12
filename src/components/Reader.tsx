@@ -7,7 +7,7 @@ import ControlButton from './ControlButton';
 
 const READ_SPEED_COEF = 0.0151; // char/ms
 
-interface TextSliderProps {
+interface ReaderProps {
 	library: { texts: [{ title: string, content: string }] },
 	textIndex: number,
 	setTextIndex: Function,
@@ -22,7 +22,7 @@ interface TextSliderProps {
 	setMode: Function
 }
 
-const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, setTextIndex, setMode }: TextSliderProps) => {
+const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIndex, setMode }: ReaderProps) => {
 	const [active, setActive] = useState(false);
 	const [position, setPosition] = useState(0);
 	const [endReached, setEndReached] = useState(false);
@@ -140,7 +140,7 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 
 	return (
 		<div
-			id="text-slide"
+			id="reader"
 			className={settings.orientation === "vertical" ? "rotate-cw" : ""}
 			style={{
 				fontSize: settings.fontSize,
@@ -196,4 +196,4 @@ const TextSlider: React.FC<TextSliderProps> = ({ settings, library, textIndex, s
 	)
 }
 
-export default TextSlider;
+export default Reader;
