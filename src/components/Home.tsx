@@ -4,7 +4,7 @@ import colors from '../utilities/colors';
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
-interface StartHelpProps {
+interface HomeProps {
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -18,7 +18,7 @@ interface StartHelpProps {
 	setMode: Function
 }
 
-const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: StartHelpProps) => {
+const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: HomeProps) => {
 	const [helpIndex, setHelpIndex] = useState(1);
 	const [keyHold, setKeyHold] = useState(false);
 	const [keyDownTime, setKeyDownTime] = useState(0);
@@ -143,4 +143,4 @@ const StartHelp: React.FC<StartHelpProps> = ({ settings, libraryStatus, fetchLib
 	);
 }
 
-export default StartHelp;
+export default Home;

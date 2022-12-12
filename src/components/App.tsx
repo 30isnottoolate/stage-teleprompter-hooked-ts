@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import StartHelp from './StartHelp';
+import Home from './Home';
 import TextList from './TextList';
 import TextSlider from './TextSlider';
 import Settings from './Settings';
@@ -138,7 +138,7 @@ const App: React.FC = () => {
 
     if (mode === "start") {
         return (
-            <StartHelp
+            <Home
                 settings={settings}
                 libraryStatus={libraryStatus}
                 fetchLibrary={fetchLibrary}
