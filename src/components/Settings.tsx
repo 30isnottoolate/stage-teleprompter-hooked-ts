@@ -222,7 +222,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<li>{settings.lineHeight.toFixed(2)}</li>
 				<li>{colors[settings.colorIndex].name}</li>
 				<li>{settings.textSpeed}%</li>
-				<li>{(settings.holdButtonTime / 100).toFixed(1)} ms</li>
+				<li>{(settings.holdButtonTime / 1000).toFixed(1)} s</li>
 				<li>{settings.orientation}</li>
 				<li></li>
 			</ul>
