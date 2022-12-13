@@ -3,6 +3,7 @@ import './App.css';
 import Home from './Home';
 import TextList from './TextList';
 import Reader from './Reader';
+import InfoPage from './InfoPage';
 import Settings from './Settings';
 
 const FONT_SIZE_DEFAULT = 100;
@@ -144,7 +145,7 @@ const App: React.FC = () => {
                 fetchLibrary={fetchLibrary}
                 setMode={setMode}
             />
-        )
+        );
     } else if (mode === "list") {
         return (
             <TextList
@@ -153,7 +154,7 @@ const App: React.FC = () => {
                 textIndex={textIndex} setTextIndex={setTextIndex}
                 setMode={setMode}
             />
-        )
+        );
     } else if (mode === "read") {
         return (
             <Reader
@@ -162,14 +163,21 @@ const App: React.FC = () => {
                 textIndex={textIndex} setTextIndex={setTextIndex}
                 setMode={setMode}
             />
-        )
+        );
+    } else if (mode === "info") {
+        return (
+            <InfoPage
+                settings={settings}
+                setMode={setMode}
+            />
+        );
     } else {
         return (
             <Settings
                 settings={settings} setSettings={setSettings} defaultSettings={defaultSettings}
                 setMode={setMode}
             />
-        )
+        );
     }
 }
 
