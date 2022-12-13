@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import DOMPurify from 'dompurify';
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
@@ -32,10 +32,6 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	const slideRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		setPosition(settings.fontSize * settings.lineHeight);
-	}, []);
-
-	useEffect(() => {
 		let intervalID: ReturnType<typeof setInterval>;
 		let noEmptyLinesTextHeight: number;
 		let intervalValue: number;
@@ -51,9 +47,8 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	useEffect(() => {
 		if (slideRef.current) {
-			if (!(slideRef.current.offsetHeight > ((-1) * position +
-				(settings.fontSize * settings.lineHeight * 2)) &&
-				(position) <= (settings.fontSize * settings.lineHeight))) {
+			if (position < 2.5 * settings.fontSize * settings.lineHeight -
+				slideRef.current.offsetHeight) {
 				setActive(false);
 				setEndReached(true);
 			}
@@ -69,7 +64,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 			setTextIndex((prevState: number) => prevState + 1);
 		} else setTextIndex(0);
 
-		setPosition(settings.fontSize * settings.lineHeight);
+		setPosition(0);
 		setEndReached(false);
 		setKeyHold(false);
 		setKeyDownTime(0);
@@ -138,6 +133,16 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = settings.orientation === "vertical" ? "100vh" : "100vw";
 
+	const displayText = useMemo(() => {
+		if (library.texts[textIndex]) {
+			let currentText = library.texts[textIndex];
+			return '<div id="head-line" style="padding-bottom: ' +
+				0.5 * settings.fontSize * settings.lineHeight + 'px;">' +
+				currentText.title + '</div>' +
+				currentText.content.replace(/{{/g, "<span>").replace(/}}/g, "</span>");
+		} else return "Loading...";
+	}, [library.texts[textIndex]]);
+
 	return (
 		<div
 			id="reader"
@@ -148,7 +153,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 				lineHeight: settings.lineHeight
 			}}>
 			<Marker
-				top={settings.fontSize * settings.lineHeight}
+				top={1.5 * settings.fontSize * settings.lineHeight}
 				left={settings.fontSize * 0.19}
 				fontSize={settings.fontSize}
 				lineHeight={settings.lineHeight}
@@ -166,7 +171,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 				}} >
 				<p id="text" dangerouslySetInnerHTML={{
 					__html:
-						DOMPurify.sanitize(library.texts[textIndex].content ? library.texts[textIndex].content : "Loading...")
+						DOMPurify.sanitize(displayText)
 				}} />
 			</div>
 			<div
