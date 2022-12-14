@@ -197,8 +197,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				id="head-line"
-				className={settingsIndex === 1 ? "visible" : "hidden"}>
+				className={"title " + (settingsIndex === 1 ? "visible" : "hidden")}>
 				SETTINGS:
 			</p>
 			<Marker

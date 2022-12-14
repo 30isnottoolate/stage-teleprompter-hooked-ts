@@ -136,7 +136,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	const displayText = useMemo(() => {
 		if (library.texts[textIndex]) {
 			let currentText = library.texts[textIndex];
-			return '<div id="head-line" style="padding-bottom: ' +
+			return '<div class="title" style="padding-bottom: ' +
 				0.5 * settings.fontSize * settings.lineHeight + 'px;">' +
 				currentText.title + '</div>' +
 				currentText.content.replace(/{{/g, "<span>").replace(/}}/g, "</span>");

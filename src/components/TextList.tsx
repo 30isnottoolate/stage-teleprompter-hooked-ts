@@ -88,8 +88,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				id="head-line"
-				className={textIndex === 0 ? "visible" : "hidden"}>
+				className={"title " + (textIndex === 0 ? "visible" : "hidden")}>
 				LIBRARY:
 			</p>
 			<ul

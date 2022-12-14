@@ -63,19 +63,10 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
                 lineHeight: settings.lineHeight
             }}>
             <p
-                id="head-line"
-                className={infoIndex <= 2 ? "visible" : "hidden"}>
+                className={"title " + (infoIndex <= 2 ? "visible" : "hidden")}>
                 How to use?
             </p>
-            <p
-                id="sub-line"
-                className={infoIndex === 1 ? "visible" : "hidden"}
-                style={{
-                    position: "absolute",
-                    left: (settings.fontSize * 0.69)
-                }}>
-                Control symbols:
-            </p>
+            <br/>
             <Marker
                 top={2 * settings.fontSize * settings.lineHeight}
                 left={settings.fontSize * 0.19}

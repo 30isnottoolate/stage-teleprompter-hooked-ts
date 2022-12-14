@@ -54,7 +54,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				id="head-line">
+				className="title">
 				KV Stage Teleprompter
 			</p>
 			<div id="control" style={{ width: responsiveWidth }}>
