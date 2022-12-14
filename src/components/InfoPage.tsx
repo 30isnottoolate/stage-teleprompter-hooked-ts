@@ -49,7 +49,7 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
 
     useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 
-    let listPos = (3 - infoIndex) * settings.fontSize * settings.lineHeight;
+    let listPos = (2.5 - infoIndex) * settings.fontSize * settings.lineHeight;
     let stateColor = colors[settings.colorIndex].code;
     let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 
@@ -66,9 +66,8 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
                 className={"title " + (infoIndex <= 2 ? "visible" : "hidden")}>
                 How to use?
             </p>
-            <br/>
             <Marker
-                top={2 * settings.fontSize * settings.lineHeight}
+                top={1.5 * settings.fontSize * settings.lineHeight}
                 left={settings.fontSize * 0.19}
                 fontSize={settings.fontSize}
                 lineHeight={settings.lineHeight}
