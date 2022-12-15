@@ -13,17 +13,18 @@ const Icon: React.FC<IconProps> = ({ icon, text, fontSize, lineHeight, stateColo
     let padding = fontSize * (lineHeight - 1) / 2;
 
     return (
-        <li>
+        <li className="item-icon" style={{ height: fontSize * lineHeight }}>
             <svg
                 height={fontSize}
                 fill={stateColor}
                 style={{
                     boxSizing: "content-box",
-                    padding: `${padding}px 0`
+                    padding: `${padding}px ${2 * padding}px`
                 }}
                 viewBox="0 0 16 16">
                 {icons[icon]}
-            </svg><span style={{ color: stateColor, margin: `${padding}px 0` }}> - {text}</span>
+            </svg>
+            <p> - {text}</p>
         </li>
     );
 }
