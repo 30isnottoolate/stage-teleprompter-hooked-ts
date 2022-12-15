@@ -167,21 +167,21 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	}
 
 	const changeOrientation = () => {
-			setSettings((prevState: typeof settings) => {
-				if (prevState.orientation === "horizontal") {
-					localStorage.setItem("orientation", "vertical");
-					return { ...prevState, orientation: "vertical" };
-				} else {
-					localStorage.setItem("orientation", "horizontal");
-					return { ...prevState, orientation: "horizontal" };
-				}
-			});
+		setSettings((prevState: typeof settings) => {
+			if (prevState.orientation === "horizontal") {
+				localStorage.setItem("orientation", "vertical");
+				return { ...prevState, orientation: "vertical" };
+			} else {
+				localStorage.setItem("orientation", "horizontal");
+				return { ...prevState, orientation: "horizontal" };
+			}
+		});
 	}
 
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
-	let listPosTop = (2.5 - settingsIndex) * settings.fontSize * settings.lineHeight;
+	let listPosTop = (2.75 - settingsIndex) * settings.fontSize * settings.lineHeight;
 	let listPosLeftA = (inChangeMode) ? settings.fontSize * 0.69 - settings.fontSize * 8.02 : settings.fontSize * 0.69;
 	let listPosLeftB = (inChangeMode) ? settings.fontSize * 0.69 : settings.fontSize * 8.02;
 	let stateColor = colors[settings.colorIndex].code;
@@ -197,11 +197,12 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				className={"title " + (settingsIndex === 1 ? "visible" : "hidden")}>
+				className={"title " + (settingsIndex === 1 ? "visible" : "hidden")}
+				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
 				SETTINGS:
 			</p>
 			<Marker
-				top={1.5 * settings.fontSize * settings.lineHeight}
+				top={1.75 * settings.fontSize * settings.lineHeight}
 				left={settings.fontSize * 0.19}
 				fontSize={settings.fontSize}
 				lineHeight={settings.lineHeight}

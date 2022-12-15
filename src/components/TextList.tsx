@@ -75,7 +75,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
-	let listPos = (1.5 - textIndex) * settings.fontSize * settings.lineHeight;
+	let listPos = (1.75 - textIndex) * settings.fontSize * settings.lineHeight;
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
 	return (
@@ -88,7 +88,8 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				className={"title " + (textIndex === 0 ? "visible" : "hidden")}>
+				className={"title " + (textIndex === 0 ? "visible" : "hidden")}
+				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
 				LIBRARY:
 			</p>
 			<ul
@@ -101,7 +102,7 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 				{library.texts.map((item, index) => <li key={index}>{item.title}</li>)}
 			</ul>
 			<Marker
-				top={1.5 * settings.fontSize * settings.lineHeight}
+				top={1.75 * settings.fontSize * settings.lineHeight}
 				left={settings.fontSize * 0.19}
 				fontSize={settings.fontSize}
 				lineHeight={settings.lineHeight}

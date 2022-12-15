@@ -55,7 +55,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				className="title">
+				className="title" style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
 				KV Stage Teleprompter
 			</p>
 			<div className="content">

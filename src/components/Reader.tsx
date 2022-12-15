@@ -32,6 +32,10 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	const slideRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		setPosition(0.25 * settings.fontSize * settings.lineHeight);
+	}, []);
+
+	useEffect(() => {
 		let intervalID: ReturnType<typeof setInterval>;
 		let noEmptyLinesTextHeight: number;
 		let intervalValue: number;
@@ -47,7 +51,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	useEffect(() => {
 		if (slideRef.current) {
-			if (position < 2.5 * settings.fontSize * settings.lineHeight -
+			if (position < 2.75 * settings.fontSize * settings.lineHeight -
 				slideRef.current.offsetHeight) {
 				setActive(false);
 				setEndReached(true);
@@ -64,7 +68,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 			setTextIndex((prevState: number) => prevState + 1);
 		} else setTextIndex(0);
 
-		setPosition(0);
+		setPosition(0.25 * settings.fontSize * settings.lineHeight);
 		setEndReached(false);
 		setKeyHold(false);
 		setKeyDownTime(0);
@@ -153,7 +157,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 				lineHeight: settings.lineHeight
 			}}>
 			<Marker
-				top={1.5 * settings.fontSize * settings.lineHeight}
+				top={1.75 * settings.fontSize * settings.lineHeight}
 				left={settings.fontSize * 0.19}
 				fontSize={settings.fontSize}
 				lineHeight={settings.lineHeight}
