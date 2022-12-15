@@ -15,14 +15,15 @@ const Icon: React.FC<IconProps> = ({ icon, text, fontSize, lineHeight, stateColo
     return (
         <li>
             <svg
-                className="text-marker"
                 height={fontSize}
                 fill={stateColor}
-                style={{ boxSizing: "content-box", padding: `${padding}px 0` }}
+                style={{
+                    boxSizing: "content-box",
+                    padding: `${padding}px 0`
+                }}
                 viewBox="0 0 16 16">
                 {icons[icon]}
-            </svg>
-            <pre>     - {text} </pre>
+            </svg><span style={{ color: stateColor, margin: `${padding}px 0` }}> - {text}</span>
         </li>
     );
 }
