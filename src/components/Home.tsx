@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
 import Image from './Image';
@@ -55,7 +55,8 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				className="title" style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
+				className="title" 
+				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
 				KV Stage Teleprompter
 			</p>
 			<div className="content">
