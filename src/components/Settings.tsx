@@ -89,7 +89,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					}
 					break;
 				case 2:
-					if (settings.lineHeight > 1) {
+					if (settings.lineHeight > 1.1) {
 						changeSettings("lineHeight", -0.01);
 					}
 					break;
@@ -132,7 +132,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					}
 					break;
 				case 2:
-					if (settings.lineHeight < 1.5) {
+					if (settings.lineHeight < 1.75) {
 						changeSettings("lineHeight", +0.01);
 					}
 					break;
