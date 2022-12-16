@@ -7,7 +7,7 @@
 
 body {
 	user-select: none;
-	background-color: #05100b;
+	background-color: #06080f;
 	font-family: "Roboto", Arial, Helvetica, sans-serif;
 	overflow: hidden;
 }
@@ -22,14 +22,50 @@ body {
 	width: 100vh;
 }
 
-#head-line {
+.title {
 	text-align: center;
+}
+
+.content {
+	display: grid;
+	grid-template-rows: auto auto;
+	justify-items: center;
+    align-content: center;
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.status-image {
+	display: block;
+	box-sizing: content-box;
 }
 
 .text-marker {
 	position: absolute;
-	transition-property: top;
+	transition-property: top left;
 	transition-duration: 0.5s;
+}
+
+ul {
+	position: absolute;
+	list-style-type: none;
+	transition-property: top left;
+	transition-duration: 0.5s;
+}
+
+li,
+.title {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.item-icon {
+	display: grid;
+	grid-template-columns: auto auto; 
+	justify-content: start;
 }
 
 #slide {
@@ -42,36 +78,25 @@ body {
 	white-space: pre-wrap;
 }
 
-ul {
-	position: absolute;
-	list-style-type: none;
-	transition-property: top left;
-	transition-duration: 0.5s;
-}
-
-li,
-#head-line,
-#sub-line {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+span {
+	color: #ef4444;
 }
 
 #control {
 	display: grid;
-	background-color: #05100b;
+	background-color: #06080f;
 	width: 100vw;
 	justify-content: space-evenly;
 	grid-template-columns: 30% 30% 30%;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
-	border: 10px solid #05100b;
+	border: 10px solid #06080f;
 	border-bottom: none;
 }
 
 button {
-	background-color: #05100b;
+	background-color: #06080f;
 	padding: 3px 0 6px 0;
 	border-radius: 10px 10px 0 0;
 	border-width: 3px;
