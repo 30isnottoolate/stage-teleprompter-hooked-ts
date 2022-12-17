@@ -25,15 +25,15 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
 	const handleKeyDown = (event: KeyboardEvent) => {
-		if (event.key === "a") {
+		if (event.key.toLowerCase() === "a") {
 			handleButtonAKeyDown();
-		} else if (event.key === "b") {
+		} else if (event.key.toLowerCase() === "b") {
 			if (!inChangeMode && !event.repeat) {
 				handleButtonBUp();
 			} else if (inChangeMode) {
 				handleButtonBDecrease();
 			}
-		} else if (event.key === "c") {
+		} else if (event.key.toLowerCase() === "c") {
 			if (!inChangeMode && !event.repeat) {
 				handleButtonCDown();
 			} else if (inChangeMode) {
@@ -43,7 +43,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	}
 
 	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.key === "a" && keyHold) {
+		if (event.key.toLowerCase() === "a" && keyHold) {
 			if (!inChangeMode) {
 				handleButtonASelectHome();
 			} else handleButtonAUnselect();

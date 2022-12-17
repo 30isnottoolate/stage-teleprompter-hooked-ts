@@ -21,11 +21,11 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: HomeProps) => {
 
 	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.key === "a") {
+		if (event.key.toLowerCase() === "a") {
 			handleButtonASet();
-		} else if (event.key === "b") {
+		} else if (event.key.toLowerCase() === "b") {
 			handleButtonBList();
-		} else if (event.key === "c") {
+		} else if (event.key.toLowerCase() === "c") {
 			handleButtonCInfo();
 		}
 	}

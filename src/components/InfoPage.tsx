@@ -21,15 +21,15 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
     const [infoIndex, setInfoIndex] = useState(1);
 
     const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "b" && !event.repeat) {
+        if (event.key.toLowerCase() === "b" && !event.repeat) {
             handleButtonBUp();
-        } else if (event.key === "c" && !event.repeat) {
+        } else if (event.key.toLowerCase() === "c" && !event.repeat) {
             handleButtonCDown();
         }
     }
 
     const handleKeyUp = (event: KeyboardEvent) => {
-        if (event.key === "a") {
+        if (event.key.toLowerCase() === "a") {
             handleButtonAHome();
         }
     }

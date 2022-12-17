@@ -24,17 +24,17 @@ const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTe
 	const [keyDownTime, setKeyDownTime] = useState(0);
 
 	const handleKeyDown = (event: KeyboardEvent) => {
-		if (event.key === "a") {
+		if (event.key.toLowerCase() === "a") {
 			handleButtonAKeyDown();
-		} else if (event.key === "b" && !event.repeat) {
+		} else if (event.key.toLowerCase() === "b" && !event.repeat) {
 			handleButtonBUp();
-		} else if (event.key === "c" && !event.repeat) {
+		} else if (event.key.toLowerCase() === "c" && !event.repeat) {
 			handleButtonCDown();
 		}
 	}
 
 	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.key === "a") {
+		if (event.key.toLowerCase() === "a") {
 			handleButtonAKeyUp();
 		}
 	}

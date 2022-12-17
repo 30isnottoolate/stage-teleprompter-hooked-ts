@@ -76,10 +76,10 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (!keyHold) {
-			if (event.key === "a" || event.key === "b") {
+			if (event.key.toLowerCase() === "a" || event.key.toLowerCase() === "b") {
 				setKeyHold(true);
 				setKeyDownTime((new Date()).getTime());
-			} else if (event.key === "c" && !event.repeat) {
+			} else if (event.key.toLowerCase() === "c" && !event.repeat) {
 				if (!endReached) {
 					setActive(prevState => !prevState)
 				} else {
@@ -94,14 +94,14 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 		let holdButtonCondition = ((new Date()).getTime() - keyDownTime) > settings.holdButtonTime;
 
 		if (keyHold) {
-			if (event.key === "a") {
+			if (event.key.toLowerCase() === "a") {
 				if (holdButtonCondition) {
 					handleButtonAHome();
 				} else {
 					setKeyHold(false);
 					setKeyDownTime(0);
 				}
-			} else if (event.key === "b") {
+			} else if (event.key.toLowerCase() === "b") {
 				if (holdButtonCondition) {
 					handleButtonBList();
 				}
@@ -109,7 +109,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 					setKeyHold(false);
 					setKeyDownTime(0);
 				}
-			} else if (event.key === "c") {
+			} else if (event.key.toLowerCase() === "c") {
 				if (holdButtonCondition) {
 					nextText();
 				} else {
