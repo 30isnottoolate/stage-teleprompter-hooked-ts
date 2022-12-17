@@ -20,7 +20,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: HomeProps) => {
 
-	const handleKeyDown = (event: KeyboardEvent) => {
+	const handleKeyUp = (event: KeyboardEvent) => {
 		if (event.key === "a") {
 			handleButtonASet();
 		} else if (event.key === "b") {
@@ -38,9 +38,9 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 		} else fetchLibrary();
 	}
 
-	const handleButtonCInfo = () => setMode("info");
+	const handleButtonCInfo = () => setMode("info");////////////////////////////////
 
-	useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
@@ -98,19 +98,19 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonASet}
+					mouseUpHandler={handleButtonASet}
 					icon="settings"
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonBList}
+					mouseUpHandler={handleButtonBList}
 					icon={libraryStatus === "valid" ? "list" : "refresh"}
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonCInfo}
+					mouseUpHandler={handleButtonCInfo}
 					icon="info"
 				/>
 			</div>

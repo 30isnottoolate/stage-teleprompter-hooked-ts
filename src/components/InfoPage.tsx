@@ -21,12 +21,16 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
     const [infoIndex, setInfoIndex] = useState(1);
 
     const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "b" && !event.repeat) {
+            handleButtonBUp();
+        } else if (event.key === "c" && !event.repeat) {
+            handleButtonCDown();
+        }
+    }
+
+    const handleKeyUp = (event: KeyboardEvent) => {
         if (event.key === "a") {
             handleButtonAHome();
-        } else if (event.key === "b") {
-            handleButtonBUp();
-        } else if (event.key === "c") {
-            handleButtonCDown();
         }
     }
 
@@ -49,6 +53,7 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
     }
 
     useEventListener("keydown", (event: KeyboardEvent) => handleKeyDown(event));
+    useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
     let listPos = (2.75 - infoIndex) * settings.fontSize * settings.lineHeight;
     let stateColor = colors[settings.colorIndex].code;
@@ -177,7 +182,7 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
                 <ControlButton
                     fontSize={settings.fontSize}
                     stateColor={stateColor}
-                    mouseDownHandler={handleButtonAHome}
+                    mouseUpHandler={handleButtonAHome}
                     icon="home"
                 />
                 <ControlButton

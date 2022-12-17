@@ -27,50 +27,56 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key === "a") {
 			handleButtonAKeyDown();
-		} else {
-			if ((!inChangeMode && !event.repeat) || inChangeMode) {
-				if (event.key === "b") {
-					handleButtonBUpDecrease();
-				} else if (event.key === "c") {
-					handleButtonCDownIncrease();
-				}
+		} else if (event.key === "b") {
+			if (!inChangeMode && !event.repeat) {
+				handleButtonBUp();
+			} else if (inChangeMode) {
+				handleButtonBDecrease();
+			}
+		} else if (event.key === "c") {
+			if (!inChangeMode && !event.repeat) {
+				handleButtonCDown();
+			} else if (inChangeMode) {
+				handleButtonCIncrease();
 			}
 		}
 	}
 
 	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.key === "a") {
-			handleButtonAKeyUp();
+		if (event.key === "a" && keyHold) {
+			if (!inChangeMode) {
+				handleButtonASelectHome();
+			} else handleButtonAUnselect();
 		}
 	}
 
 	const handleButtonAKeyDown = () => {
 		if (!keyHold) {
-			if (!inChangeMode) {
-				setKeyHold(true);
-				setKeyDownTime((new Date()).getTime());
+			setKeyHold(true);
+			setKeyDownTime((new Date()).getTime());
+		}
+	}
+
+	const handleButtonASelectHome = () => {
+		if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
+			setMode("home");
+		} else {
+			if (settingsIndex === 7) {
+				defaultSettings();
+				setKeyHold(false);
+				setKeyDownTime(0);
 			} else {
-				setInChangeMode(false);
+				setInChangeMode(true);
+				setKeyHold(false);
+				setKeyDownTime(0);
 			}
 		}
 	}
 
-	const handleButtonAKeyUp = () => {
-		if (keyHold) {
-			if (((new Date()).getTime() - keyDownTime) > settings.holdButtonTime) {
-				setMode("home");
-			} else {
-				if (settingsIndex === 7) {
-					defaultSettings();
-					setKeyHold(false);
-					setKeyDownTime(0);
-				} else {
-					setKeyHold(false);
-					setKeyDownTime(0);
-					setInChangeMode((prevState) => !prevState);
-				}
-			}
-		}
+	const handleButtonAUnselect = () => {
+		setInChangeMode(false);
+		setKeyHold(false);
+		setKeyDownTime(0);
 	}
 
 	const changeSettings = (setting: string, value: number) => {
@@ -80,89 +86,89 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 		});
 	}
 
-	const handleButtonBUpDecrease = () => {
-		if (inChangeMode) {
-			switch (settingsIndex) {
-				case 1:
-					if (settings.fontSize > 80) {
-						changeSettings("fontSize", -1);
-					}
-					break;
-				case 2:
-					if (settings.lineHeight > 1.1) {
-						changeSettings("lineHeight", -0.01);
-					}
-					break;
-				case 3:
-					if (settings.colorIndex > 1) {
-						changeSettings("colorIndex", -1);
-					} else changeSettings("colorIndex", 4);
-					break;
-				case 4:
-					if (settings.textSpeed > 20) {
-						changeSettings("textSpeed", -1);
-					}
-					break;
-				case 5:
-					if (settings.holdButtonTime > 1000) {
-						changeSettings("holdButtonTime", -100);
-					}
-					break;
-				case 6:
-					changeOrientation();
-					break;
-				default:
-					console.log("The impossible just happened.");
-			}
+	const handleButtonBUp = () => {
+		if (settingsIndex > 1) {
+			setSettingsIndex((prevStates) => prevStates - 1);
 		} else {
-			if (settingsIndex > 1) {
-				setSettingsIndex((prevStates) => prevStates - 1);
-			} else {
-				setSettingsIndex(7);
-			}
+			setSettingsIndex(7);
 		}
 	}
 
-	const handleButtonCDownIncrease = () => {
-		if (inChangeMode) {
-			switch (settingsIndex) {
-				case 1:
-					if (settings.fontSize < 150) {
-						changeSettings("fontSize", +1);
-					}
-					break;
-				case 2:
-					if (settings.lineHeight < 1.75) {
-						changeSettings("lineHeight", +0.01);
-					}
-					break;
-				case 3:
-					if (settings.colorIndex < 5) {
-						changeSettings("colorIndex", +1);
-					} else changeSettings("colorIndex", -4);
-					break;
-				case 4:
-					if (settings.textSpeed < 200) {
-						changeSettings("textSpeed", +1);
-					}
-					break;
-				case 5:
-					if (settings.holdButtonTime < 5000) {
-						changeSettings("holdButtonTime", +100);
-					}
-					break;
-				case 6:
-					changeOrientation();
-					break;
-				default:
-					console.log("The impossible just happened.");
-			}
+	const handleButtonBDecrease = () => {
+		switch (settingsIndex) {
+			case 1:
+				if (settings.fontSize > 80) {
+					changeSettings("fontSize", -1);
+				}
+				break;
+			case 2:
+				if (settings.lineHeight > 1.1) {
+					changeSettings("lineHeight", -0.01);
+				}
+				break;
+			case 3:
+				if (settings.colorIndex > 1) {
+					changeSettings("colorIndex", -1);
+				} else changeSettings("colorIndex", 4);
+				break;
+			case 4:
+				if (settings.textSpeed > 20) {
+					changeSettings("textSpeed", -1);
+				}
+				break;
+			case 5:
+				if (settings.holdButtonTime > 1000) {
+					changeSettings("holdButtonTime", -100);
+				}
+				break;
+			case 6:
+				changeOrientation();
+				break;
+			default:
+				console.log("The impossible just happened.");
+		}
+	}
+
+	const handleButtonCDown = () => {
+		if (settingsIndex < 7) {
+			setSettingsIndex((prevStates) => prevStates + 1);
 		} else {
-			if (settingsIndex < 7) {
-				setSettingsIndex((prevStates) => prevStates + 1);
-			} else {
-				setSettingsIndex(1);
-			}
+			setSettingsIndex(1);
+		}
+	}
+
+	const handleButtonCIncrease = () => {
+		switch (settingsIndex) {
+			case 1:
+				if (settings.fontSize < 150) {
+					changeSettings("fontSize", +1);
+				}
+				break;
+			case 2:
+				if (settings.lineHeight < 1.75) {
+					changeSettings("lineHeight", +0.01);
+				}
+				break;
+			case 3:
+				if (settings.colorIndex < 5) {
+					changeSettings("colorIndex", +1);
+				} else changeSettings("colorIndex", -4);
+				break;
+			case 4:
+				if (settings.textSpeed < 200) {
+					changeSettings("textSpeed", +1);
+				}
+				break;
+			case 5:
+				if (settings.holdButtonTime < 5000) {
+					changeSettings("holdButtonTime", +100);
+				}
+				break;
+			case 6:
+				changeOrientation();
+				break;
+			default:
+				console.log("The impossible just happened.");
 		}
 	}
 
@@ -231,19 +237,19 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
 					mouseDownHandler={handleButtonAKeyDown}
-					mouseUpHandler={handleButtonAKeyUp}
+					mouseUpHandler={inChangeMode ? handleButtonAUnselect : handleButtonASelectHome}
 					icon="selectHome"
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonBUpDecrease}
+					mouseDownHandler={inChangeMode ? handleButtonBDecrease : handleButtonBUp}
 					icon={inChangeMode ? "left" : "up"}
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonCDownIncrease}
+					mouseDownHandler={inChangeMode ? handleButtonCIncrease : handleButtonCDown}
 					icon={inChangeMode ? "right" : "down"}
 				/>
 			</div>
