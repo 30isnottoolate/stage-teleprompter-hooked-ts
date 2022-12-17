@@ -4,7 +4,7 @@ import icons from '../utilities/icons';
 interface ControlButtonProps {
     fontSize: number,
     stateColor: string,
-    mouseDownHandler: () => void,
+    mouseDownHandler?: () => void,
     mouseUpHandler?: () => void,
     icon: string,
     disabled?: boolean
