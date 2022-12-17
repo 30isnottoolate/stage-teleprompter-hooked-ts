@@ -76,9 +76,16 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (!keyHold) {
-			if (event.key === "a" || event.key === "b" || event.key === "c") {
+			if (event.key === "a" || event.key === "b") {
 				setKeyHold(true);
 				setKeyDownTime((new Date()).getTime());
+			} else if (event.key === "c" && !event.repeat) {
+				if (!endReached) {
+					setActive(prevState => !prevState)
+				} else {
+					setKeyHold(true);
+					setKeyDownTime((new Date()).getTime());
+				}
 			}
 		}
 	}
@@ -103,15 +110,9 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 					setKeyDownTime(0);
 				}
 			} else if (event.key === "c") {
-				if (endReached) {
-					if (holdButtonCondition) {
-						nextText();
-					} else {
-						setKeyHold(false);
-						setKeyDownTime(0);
-					}
+				if (holdButtonCondition) {
+					nextText();
 				} else {
-					setActive((prevState) => !prevState);
 					setKeyHold(false);
 					setKeyDownTime(0);
 				}
@@ -185,13 +186,13 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonAHome}
+					mouseUpHandler={handleButtonAHome}
 					icon="home"
 				/>
 				<ControlButton
 					fontSize={settings.fontSize}
 					stateColor={stateColor}
-					mouseDownHandler={handleButtonBList}
+					mouseUpHandler={handleButtonBList}
 					icon="list"
 				/>
 				<ControlButton
