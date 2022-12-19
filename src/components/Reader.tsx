@@ -144,7 +144,9 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 			return '<div class="title" style="padding-bottom: ' +
 				0.5 * settings.fontSize * settings.lineHeight + 'px;">' +
 				currentText.title + '</div>' +
-				currentText.content.replace(/{{/g, "<span>").replace(/}}/g, "</span>");
+				currentText.content.replace(/{r{/g, "<span class='red-mark'>").replace(/}r}/g, "</span>")
+					.replace(/{g{/g, "<span class='green-mark'>").replace(/}g}/g, "</span>")
+					.replace(/{b{/g, "<span class='blue-mark'>").replace(/}b}/g, "</span>");
 		} else return "Loading...";
 	}, [library.texts[textIndex]]);
 
