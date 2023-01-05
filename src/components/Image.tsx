@@ -2,10 +2,10 @@ import React from 'react';
 import icons from '../utilities/icons';
 
 interface ImageProps {
-    icon: string,
-    fontSize: number,
-    lineHeight: number,
-    stateColor: string
+    icon: string;
+    fontSize: number;
+    lineHeight: number;
+    stateColor: string;
 }
 
 const Image: React.FC<ImageProps> = ({ icon, fontSize, lineHeight, stateColor }: ImageProps) => {

@@ -8,9 +8,9 @@ import ControlButton from './ControlButton';
 const READ_SPEED_COEF = 0.0151; // char/ms
 
 interface ReaderProps {
-	library: { texts: [{ title: string, content: string }] },
-	textIndex: number,
-	setTextIndex: Function,
+	library: { texts: [{ title: string, content: string }] };
+	textIndex: number;
+	setTextIndex: Function;
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -18,8 +18,8 @@ interface ReaderProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	},
-	setMode: Function
+	};
+	setMode: Function;
 }
 
 const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIndex, setMode }: ReaderProps) => {

@@ -5,9 +5,9 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface TextListProps {
-	library: { texts: [{ title: string, content: string }] },
-	textIndex: number,
-	setTextIndex: Function,
+	library: { texts: [{ title: string, content: string }] };
+	textIndex: number;
+	setTextIndex: Function;
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -15,8 +15,8 @@ interface TextListProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	},
-	setMode: Function
+	};
+	setMode: Function;
 }
 
 const TextList: React.FC<TextListProps> = ({ settings, library, textIndex, setTextIndex, setMode }: TextListProps) => {

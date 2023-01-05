@@ -13,8 +13,8 @@ interface InfoPageProps {
         textSpeed: number,
         holdButtonTime: number,
         orientation: string
-    },
-    setMode: Function
+    };
+    setMode: Function;
 }
 
 const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps) => {

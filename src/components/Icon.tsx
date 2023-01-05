@@ -2,11 +2,11 @@ import React from 'react';
 import icons from '../utilities/icons';
 
 interface IconProps {
-    icon: string,
-    text: string,
-    fontSize: number,
-    lineHeight: number,
-    stateColor: string
+    icon: string;
+    text: string;
+    fontSize: number;
+    lineHeight: number;
+    stateColor: string;
 }
 
 const Icon: React.FC<IconProps> = ({ icon, text, fontSize, lineHeight, stateColor }: IconProps) => {

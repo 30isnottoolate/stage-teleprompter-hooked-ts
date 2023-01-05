@@ -2,12 +2,12 @@ import React from 'react';
 import icons from '../utilities/icons';
 
 interface ControlButtonProps {
-    fontSize: number,
-    stateColor: string,
-    mouseDownHandler?: () => void,
-    mouseUpHandler?: () => void,
-    icon: string,
-    disabled?: boolean
+    fontSize: number;
+    stateColor: string;
+    mouseDownHandler?: () => void; /////
+    mouseUpHandler?: () => void; /////
+    icon: string;
+    disabled?: boolean;
 }
 
 const ControlButton: React.FC<ControlButtonProps> = ({ fontSize, stateColor, mouseDownHandler, mouseUpHandler, icon, disabled }: ControlButtonProps) => {

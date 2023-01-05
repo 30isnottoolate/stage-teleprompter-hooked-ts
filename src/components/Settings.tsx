@@ -5,9 +5,9 @@ import Marker from './Marker';
 import ControlButton from './ControlButton';
 
 interface SettingsProps {
-	setMode: Function,
-	setSettings: Function,
-	defaultSettings: Function,
+	setMode: Function;
+	setSettings: Function;
+	defaultSettings: Function;
 	settings: {
 		fontSize: number,
 		lineHeight: number,
@@ -15,7 +15,7 @@ interface SettingsProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	}
+	};
 }
 
 const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSettings, setMode }: SettingsProps) => {

@@ -12,10 +12,10 @@ interface HomeProps {
 		textSpeed: number,
 		holdButtonTime: number,
 		orientation: string
-	},
-	libraryStatus: string,
-	fetchLibrary: Function,
-	setMode: Function
+	};
+	libraryStatus: string;
+	fetchLibrary: Function;
+	setMode: Function;
 }
 
 const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setMode }: HomeProps) => {
@@ -38,7 +38,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 		} else fetchLibrary();
 	}
 
-	const handleButtonCInfo = () => setMode("info");////////////////////////////////
+	const handleButtonCInfo = () => setMode("info");
 
 	useEventListener("keyup", (event: KeyboardEvent) => handleKeyUp(event));
 
