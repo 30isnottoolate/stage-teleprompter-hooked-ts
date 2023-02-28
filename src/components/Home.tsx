@@ -1,6 +1,8 @@
 import React from 'react';
+
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
+
 import Image from './Image';
 import ControlButton from './ControlButton';
 
@@ -50,13 +52,13 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 			id="text-list"
 			className={settings.orientation === "vertical" ? "rotate-cw" : ""}
 			style={{
-				fontSize: settings.fontSize,
+				fontSize: settings.fontSize + "rem",
 				color: stateColor,
 				lineHeight: settings.lineHeight
 			}}>
 			<p
 				className="title" 
-				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
+				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight + "rem" }} >
 				KV Stage Teleprompter
 			</p>
 			<div className="content">
@@ -88,7 +90,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 						lineHeight={settings.lineHeight}
 						stateColor={stateColor}
 					/>}
-				<p style={{ fontSize: settings.fontSize * 0.75 }}>{libraryStatus === "checking" ? "CHECKING LIBRARY..." :
+				<p style={{ fontSize: settings.fontSize * 0.75 + "rem" }}>{libraryStatus === "checking" ? "CHECKING LIBRARY..." :
 					libraryStatus === "missing" ? "LIBRARY MISSING" :
 						libraryStatus === "invalid" ? "LIBRARY INVALID" :
 							"LIBRARY READY"
