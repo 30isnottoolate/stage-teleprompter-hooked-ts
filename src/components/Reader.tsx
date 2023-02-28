@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+
 import DOMPurify from 'dompurify';
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
+import remValue from '../utilities/remValue';
+
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -32,7 +35,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	const slideRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		setPosition(0.25 * settings.fontSize * settings.lineHeight);
+		setPosition(0.25 * settings.fontSize * remValue * settings.lineHeight);
 	}, []);
 
 	useEffect(() => {
@@ -41,7 +44,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 		let intervalValue: number;
 
 		if (slideRef.current && active) {
-			noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * settings.lineHeight * countEmptyLines(library.texts[textIndex].content);
+			noEmptyLinesTextHeight = slideRef.current.offsetHeight - settings.fontSize * remValue * settings.lineHeight * countEmptyLines(library.texts[textIndex].content);
 			intervalValue = (library.texts[textIndex].content.length / (noEmptyLinesTextHeight * READ_SPEED_COEF)) * (100 / settings.textSpeed);
 			intervalID = setInterval(() => setPosition((prevState) => prevState - 1), intervalValue);
 		}
@@ -51,7 +54,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 
 	useEffect(() => {
 		if (slideRef.current) {
-			if (position < 2.75 * settings.fontSize * settings.lineHeight -
+			if (position < 2.75 * settings.fontSize * remValue * settings.lineHeight -
 				slideRef.current.offsetHeight) {
 				setActive(false);
 				setEndReached(true);
@@ -68,7 +71,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 			setTextIndex((prevState: number) => prevState + 1);
 		} else setTextIndex(0);
 
-		setPosition(0.25 * settings.fontSize * settings.lineHeight);
+		setPosition(0.25 * settings.fontSize * remValue * settings.lineHeight);
 		setEndReached(false);
 		setKeyHold(false);
 		setKeyDownTime(0);
@@ -142,7 +145,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 		if (library.texts[textIndex]) {
 			let currentText = library.texts[textIndex];
 			return '<div class="title" style="padding-bottom: ' +
-				0.5 * settings.fontSize * settings.lineHeight + 'px;">' +
+				0.5 * settings.fontSize * settings.lineHeight + 'rem;">' +
 				currentText.title + '</div>' +
 				currentText.content.replace(/{r{/g, "<span class='red-mark'>").replace(/}r}/g, "</span>")
 					.replace(/{g{/g, "<span class='green-mark'>").replace(/}g}/g, "</span>")
@@ -155,7 +158,7 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 			id="reader"
 			className={settings.orientation === "vertical" ? "rotate-cw" : ""}
 			style={{
-				fontSize: settings.fontSize,
+				fontSize: settings.fontSize + "rem",
 				color: stateColor,
 				lineHeight: settings.lineHeight
 			}}>
@@ -171,9 +174,9 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 				ref={slideRef}
 				style={{
 					top: position,
-					width: `calc(${responsiveWidth} - ${(1.5 * settings.fontSize * 0.69)}px)`,
-					fontSize: settings.fontSize,
-					left: (settings.fontSize * 0.69),
+					width: `calc(${responsiveWidth} - ${(1.5 * settings.fontSize * 0.69)}rem)`,
+					fontSize: settings.fontSize + "rem",
+					left: (settings.fontSize * 0.69 + "rem"),
 					transitionProperty: settings.textSpeed < 50 ? "top" : "none"
 				}} >
 				<p id="text" dangerouslySetInnerHTML={{
