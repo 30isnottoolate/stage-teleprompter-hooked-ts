@@ -6,8 +6,8 @@ import remValue from '../utilities/remValue';
 interface ControlButtonProps {
     fontSize: number;
     stateColor: string;
-    mouseDownHandler?: () => void; /////
-    mouseUpHandler?: () => void; /////
+    mouseDownHandler?: React.MouseEventHandler;
+    mouseUpHandler?: React.MouseEventHandler;
     icon: string;
     disabled?: boolean;
 }
