@@ -141,16 +141,6 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = settings.orientation === "vertical" ? "100vh" : "100vw";
 
-	/* const displayText = useMemo(() => {
-		if (library.texts[textIndex]) {
-			let currentText = library.texts[textIndex];
-			return '<div class="title" style="padding-bottom: ' +
-				0.5 * settings.fontSize * settings.lineHeight + 'rem;">' +
-				currentText.title + '</div>' +
-				currentText.content;
-		} else return "Loading...";
-	}, [library.texts[textIndex]]); */
-
 	return (
 		<div
 			id="reader"
