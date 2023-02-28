@@ -101,7 +101,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 		switch (settingsIndex) {
 			case 1:
 				if (settings.fontSize > 80 / remValue) {
-					changeSettings("fontSize", -1 / remValue);
+					changeSettings("fontSize", - (1 / remValue));
 				}
 				break;
 			case 2:
@@ -144,7 +144,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 		switch (settingsIndex) {
 			case 1:
 				if (settings.fontSize < 150 / remValue) {
-					changeSettings("fontSize", +1 / remValue);
+					changeSettings("fontSize", (1 / remValue));
 				}
 				break;
 			case 2:
@@ -227,7 +227,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<li>Default settings</li>
 			</ul>
 			<ul style={{ top: listPosTop + "rem", left: listPosLeftB + "rem" }}>
-				<li>{settings.fontSize * remValue}</li>
+				<li>{Math.floor(settings.fontSize * remValue)}</li>
 				<li>{settings.lineHeight.toFixed(2)}</li>
 				<li>{colors[settings.colorIndex].name}</li>
 				<li>{settings.textSpeed}%</li>
