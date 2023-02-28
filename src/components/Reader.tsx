@@ -141,17 +141,15 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = settings.orientation === "vertical" ? "100vh" : "100vw";
 
-	const displayText = useMemo(() => {
+	/* const displayText = useMemo(() => {
 		if (library.texts[textIndex]) {
 			let currentText = library.texts[textIndex];
 			return '<div class="title" style="padding-bottom: ' +
 				0.5 * settings.fontSize * settings.lineHeight + 'rem;">' +
 				currentText.title + '</div>' +
-				currentText.content.replace(/{r{/g, "<span class='red-mark'>").replace(/}r}/g, "</span>")
-					.replace(/{g{/g, "<span class='green-mark'>").replace(/}g}/g, "</span>")
-					.replace(/{b{/g, "<span class='blue-mark'>").replace(/}b}/g, "</span>");
+				currentText.content;
 		} else return "Loading...";
-	}, [library.texts[textIndex]]);
+	}, [library.texts[textIndex]]); */
 
 	return (
 		<div
@@ -179,9 +177,14 @@ const Reader: React.FC<ReaderProps> = ({ settings, library, textIndex, setTextIn
 					left: (settings.fontSize * 0.69 + "rem"),
 					transitionProperty: settings.textSpeed < 50 ? "top" : "none"
 				}} >
+				<div
+					className="title"
+					style={{ paddingBottom: 0.5 * settings.fontSize * settings.lineHeight + "rem" }}>
+					{library.texts[textIndex].title}
+				</div>
 				<p id="text" dangerouslySetInnerHTML={{
 					__html:
-						DOMPurify.sanitize(displayText)
+						DOMPurify.sanitize(library.texts[textIndex].content)
 				}} />
 			</div>
 			<div
