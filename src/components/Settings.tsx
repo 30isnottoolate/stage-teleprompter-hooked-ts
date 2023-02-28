@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
+import remValue from '../utilities/remValue';
+
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
@@ -97,8 +100,8 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	const handleButtonBDecrease = () => {
 		switch (settingsIndex) {
 			case 1:
-				if (settings.fontSize > 80) {
-					changeSettings("fontSize", -1);
+				if (settings.fontSize > 80 / remValue) {
+					changeSettings("fontSize", -1 / remValue);
 				}
 				break;
 			case 2:
@@ -140,8 +143,8 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 	const handleButtonCIncrease = () => {
 		switch (settingsIndex) {
 			case 1:
-				if (settings.fontSize < 150) {
-					changeSettings("fontSize", +1);
+				if (settings.fontSize < 150 / remValue) {
+					changeSettings("fontSize", +1 / remValue);
 				}
 				break;
 			case 2:
@@ -198,13 +201,13 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 			id="settings"
 			className={settings.orientation === "vertical" ? "rotate-cw" : ""}
 			style={{
-				fontSize: settings.fontSize,
+				fontSize: settings.fontSize + "rem",
 				color: stateColor,
 				lineHeight: settings.lineHeight
 			}}>
 			<p
 				className={"title " + (settingsIndex === 1 ? "visible" : "hidden")}
-				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
+				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight + "rem" }} >
 				SETTINGS:
 			</p>
 			<Marker
@@ -214,7 +217,7 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				lineHeight={settings.lineHeight}
 				stateColor={stateColor}
 			/>
-			<ul style={{ top: listPosTop, left: listPosLeftA }}>
+			<ul style={{ top: listPosTop + "rem", left: listPosLeftA + "rem" }}>
 				<li>Font size:</li>
 				<li>Line height:</li>
 				<li>UI color:</li>
@@ -223,8 +226,8 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings, defaultSetti
 				<li>Orientation:</li>
 				<li>Default settings</li>
 			</ul>
-			<ul style={{ top: listPosTop, left: listPosLeftB }}>
-				<li>{settings.fontSize}</li>
+			<ul style={{ top: listPosTop + "rem", left: listPosLeftB + "rem" }}>
+				<li>{settings.fontSize * remValue}</li>
 				<li>{settings.lineHeight.toFixed(2)}</li>
 				<li>{colors[settings.colorIndex].name}</li>
 				<li>{settings.textSpeed}%</li>
