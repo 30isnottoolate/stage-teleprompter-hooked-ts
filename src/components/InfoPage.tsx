@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
+
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 import Icon from './Icon';
@@ -64,13 +66,13 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
             id="text-list"
             className={settings.orientation === "vertical" ? "rotate-cw" : ""}
             style={{
-                fontSize: settings.fontSize,
+                fontSize: settings.fontSize + "rem",
                 color: stateColor,
                 lineHeight: settings.lineHeight
             }}>
             <p
                 className={"title " + (infoIndex <= 1 ? "visible" : "hidden")}
-                style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight }} >
+                style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight + "rem" }} >
                 How to use?
             </p>
             <Marker
@@ -82,8 +84,8 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
             />
             <ul
                 style={{
-                    top: listPos,
-                    left: settings.fontSize * 0.69,
+                    top: listPos + "rem",
+                    left: settings.fontSize * 0.69 + "rem",
                     width: responsiveWidth
                 }}>
                 <Icon
