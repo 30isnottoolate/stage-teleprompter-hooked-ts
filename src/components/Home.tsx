@@ -46,6 +46,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
+	let responsiveHight = (settings.orientation === "vertical") ? "100vw" : "100vh";
 
 	return (
 		<div
@@ -57,11 +58,16 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				lineHeight: settings.lineHeight
 			}}>
 			<p
-				className="title" 
+				className="title"
 				style={{ paddingTop: 0.25 * settings.fontSize * settings.lineHeight + "rem" }} >
 				KV Stage Teleprompter
 			</p>
-			<div className="content">
+			<div
+				className="content"
+				style={{
+					width: responsiveWidth,
+					height: responsiveHight
+				}}>
 				{libraryStatus === "checking" &&
 					<Image
 						icon="checking"
