@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import useEventListener from '../utilities/useEventListener';
 import colors from '../utilities/colors';
+
 import Marker from './Marker';
 import ControlButton from './ControlButton';
 
