@@ -14,10 +14,10 @@ const Image: React.FC<ImageProps> = ({ icon, fontSize, lineHeight, stateColor }:
     return (
         <svg
             className="status-image"
-            height={2 * fontSize}
+            height={2 * fontSize + "rem"}
             fill={stateColor}
             style={{
-                padding: `${4 * padding}px 0`
+                padding: `${4 * padding}rem 0`
             }}
             viewBox="0 0 16 16">
             {icons[icon]}
