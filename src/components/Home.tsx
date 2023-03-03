@@ -46,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 
 	let stateColor = colors[settings.colorIndex].code;
 	let responsiveWidth = (settings.orientation === "vertical") ? "100vh" : "100vw";
-	let responsiveHight = (settings.orientation === "vertical") ? "100vw" : "100vh";
+	let responsiveHeight = (settings.orientation === "vertical") ? "100vw" : "100vh";
 
 	return (
 		<div
@@ -66,7 +66,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 				className="content"
 				style={{
 					width: responsiveWidth,
-					height: responsiveHight
+					height: responsiveHeight
 				}}>
 				{libraryStatus === "checking" &&
 					<Image
