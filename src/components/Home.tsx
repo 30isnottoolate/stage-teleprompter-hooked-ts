@@ -50,7 +50,7 @@ const Home: React.FC<HomeProps> = ({ settings, libraryStatus, fetchLibrary, setM
 
 	return (
 		<div
-			id="text-list"
+			id="home"
 			className={settings.orientation === "vertical" ? "rotate-cw" : ""}
 			style={{
 				fontSize: settings.fontSize + "rem",

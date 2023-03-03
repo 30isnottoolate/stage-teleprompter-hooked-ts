@@ -63,7 +63,7 @@ const InfoPage: React.FC<InfoPageProps> = ({ settings, setMode }: InfoPageProps)
 
     return (
         <div
-            id="text-list"
+            id="info-page"
             className={settings.orientation === "vertical" ? "rotate-cw" : ""}
             style={{
                 fontSize: settings.fontSize + "rem",
